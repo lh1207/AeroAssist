@@ -1,59 +1,42 @@
-﻿namespace AeroAssist
-{
-    public class Ticket
-    {
-        // Properties
-        public int TicketId { get; set; }
-        public string Title { get; set; }
-        public string? Description { get; set; }
-        public string? Status { get; set; }
-        public string? Priority { get; set; }
-        public string? Type { get; set; }
-        public string? Assignee { get; set; }
-        public string? Reporter { get; set; }
-        public string? Created { get; set; }
-        public string? Updated { get; set; }
-        public string? Due { get; set; }
-        public string? Resolution { get; set; }
-        public string? Comments { get; set; }
-        public string? Attachments { get; set; }
-        public string? Departments { get; set; }
+﻿using System.Reflection;
 
-        // Constructor
-        public Ticket(
-            int ticketId,
-            string title,
-            string? description,
-            string? status,
-            string? priority,
-            string? type,
-            string? assignee,
-            string? reporter,
-            string? created,
-            string? updated,
-            string? due,
-            string? resolution,
-            string? comments,
-            string? attachments,
-            string? departments)
-        {
-            // Initialize properties
-            TicketId = ticketId;
-            Title = title;
-            Description = description;
-            Status = status;
-            Priority = priority;
-            Type = type;
-            Assignee = assignee;
-            Reporter = reporter;
-            Created = created;
-            Updated = updated;
-            Due = due;
-            Resolution = resolution;
-            Comments = comments;
-            Attachments = attachments;
-            Departments = departments;
-        }
+namespace AeroAssist
+{
+    // Primary constructor, which accepts parameters for each property
+    public class Ticket(
+        int ticketId,
+        string title,
+        string? description,
+        string? status,
+        string? priority,
+        string? type,
+        string? assignee,
+        string? reporter,
+        string? created,
+        string? updated,
+        string? due,
+        string? resolution,
+        string? comments,
+        string? attachments,
+        string? departments)
+    {
+
+        // Getters and Setters for Constructor
+        int TicketId { get; set; } = ticketId;
+        string Title { get; set; } = title;
+        public string? Description { get; set; } = description;
+        public string? Status { get; set; } = status;
+        public string? Priority { get; set; } = priority;
+        public string? Type { get; set; } = type;
+        public string? Assignee { get; set; } = assignee;
+        public string? Reporter { get; set; } = reporter;
+        public string? Created { get; set; } = created;
+        public string? Updated { get; set; } = updated;
+        public string? Due { get; set; } = due;
+        public string? Resolution { get; set; } = resolution;
+        public string? Comments { get; set; } = comments;
+        public string? Attachments { get; set; } = attachments;
+        public string? Departments { get; set; } = departments;
 
         // Ticket Functions
         public void CreateTicket()
