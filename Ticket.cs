@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace AeroAssist
+﻿namespace AeroAssist
 {
     // Primary constructor, which accepts parameters for each property
     public class Ticket(
@@ -22,7 +20,7 @@ namespace AeroAssist
     {
 
         // Getters and Setters for Constructor
-        int TicketId { get; set; } = ticketId;
+        public int TicketId { get; set; } = ticketId;
         string Title { get; set; } = title;
         public string? Description { get; set; } = description;
         public string? Status { get; set; } = status;
