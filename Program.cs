@@ -9,6 +9,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddControllers();
+builder.Services.AddRazorPages();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,6 +30,10 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+// Map API controllers
 app.MapControllers();
+
+// Map Razor Pages
+app.MapRazorPages();
 
 app.Run();

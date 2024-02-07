@@ -5,29 +5,29 @@ namespace AeroAssist.Services
 {
     public interface ITicketService
     {
-        IEnumerable<Ticket> GetAllTickets();
-        Ticket GetTicketById(int id);
-        Ticket CreateTicket(Ticket ticket);
-        void UpdateTicket(Ticket updatedTicket);
+        IEnumerable<Ticket?> GetAllTickets();
+        Ticket? GetTicketById(int id);
+        Ticket? CreateTicket(Ticket? ticket);
+        void UpdateTicket(Ticket? updatedTicket);
         void DeleteTicket(int id);
     }
 
     public class TicketService : ITicketService
     {
-        private readonly List<Ticket> _tickets = new List<Ticket>();
+        private readonly List<Ticket?> _tickets = new List<Ticket?>();
         private int _nextTicketId = 1;
 
-        public IEnumerable<Ticket> GetAllTickets()
+        public IEnumerable<Ticket?> GetAllTickets()
         {
             return _tickets;
         }
 
-        public Ticket GetTicketById(int id)
+        public Ticket? GetTicketById(int id)
         {
-            return _tickets.Find(ticket => ticket.TicketId == id);
+            return _tickets.Find(ticket => ticket != null && ticket.TicketId == id);
         }
 
-        public Ticket CreateTicket(Ticket ticket)
+        public Ticket? CreateTicket(Ticket? ticket)
         {
             if (ticket == null)
             {
@@ -40,14 +40,14 @@ namespace AeroAssist.Services
             return ticket;
         }
 
-        public void UpdateTicket(Ticket updatedTicket)
+        public void UpdateTicket(Ticket? updatedTicket)
         {
             if (updatedTicket == null)
             {
                 throw new ArgumentNullException(nameof(updatedTicket));
             }
 
-            var index = _tickets.FindIndex(ticket => ticket.TicketId == updatedTicket.TicketId);
+            var index = _tickets.FindIndex(ticket => ticket != null && ticket.TicketId == updatedTicket.TicketId);
             if (index != -1)
             {
                 _tickets[index] = updatedTicket;
@@ -56,7 +56,7 @@ namespace AeroAssist.Services
 
         public void DeleteTicket(int id)
         {
-            _tickets.RemoveAll(ticket => ticket.TicketId == id);
+            _tickets.RemoveAll(ticket => ticket != null && ticket.TicketId == id);
         }
     }
 }

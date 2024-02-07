@@ -40,20 +40,28 @@ namespace AeroAssist.Controllers
 
         // POST: api/Ticket
         [HttpPost]
-        public ActionResult<Ticket> Post([FromBody] Ticket ticket)
+        public ActionResult<Ticket> Post([FromBody] Ticket? ticket)
         {
-            if (ticket == null) // TODO: Handle nulls
+            if (ticket == null)
             {
                 return BadRequest(); // 400
             }
 
             var createdTicket = _ticketService.CreateTicket(ticket);
-            return CreatedAtAction(nameof(Get), new { id = createdTicket.TicketId }, createdTicket);
+            if (createdTicket != null)
+            {
+                return CreatedAtAction(nameof(Get), new { id = createdTicket.TicketId }, createdTicket);
+            }
+            else
+            {
+                return StatusCode(500, "Failed to create ticket"); // Internal Server Error
+            }
         }
+
 
         // PUT: api/Ticket/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Ticket updatedTicket)
+        public IActionResult Put(int id, [FromBody] Ticket? updatedTicket)
         {
             if (updatedTicket == null || id != updatedTicket.TicketId) // TODO: Handle nulls
             {
