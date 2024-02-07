@@ -3,6 +3,10 @@
     "identityapp1": {
       "connectionInfo": "App registration: AeroAssist, Tenant: University of Cincinnati (mailuc.onmicrosoft.com - Microsoft Entra ID)",
       "type": "identityapp.default"
+    },
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:TicketContext"
     }
   }
 }
