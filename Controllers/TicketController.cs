@@ -7,8 +7,13 @@ namespace AeroAssist.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TicketController : ControllerBase
+    public class TicketController : Controller
     {
+        public IActionResult Ticket()
+        {
+            return View();
+        }
+
         private readonly ITicketService _ticketService;
 
         public TicketController(ITicketService ticketService)
