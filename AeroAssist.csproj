@@ -6,8 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<InvariantGlobalization>true</InvariantGlobalization>
 		<UserSecretsId>aspnet-AeroAssist-fdbb9cad-a0c2-45dd-86d0-a624ad389716</UserSecretsId>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<DockerfileContext>.</DockerfileContext>
+		<LangVersion>latestmajor</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

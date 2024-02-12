@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AeroAssist.Services;
+﻿using AeroAssist.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace AeroAssist.Controllers
 {
@@ -9,11 +9,6 @@ namespace AeroAssist.Controllers
     [ApiController]
     public class TicketController : Controller
     {
-        public IActionResult Ticket()
-        {
-            return View();
-        }
-
         private readonly ITicketService _ticketService;
 
         public TicketController(ITicketService ticketService)
@@ -21,84 +16,85 @@ namespace AeroAssist.Controllers
             _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
         }
 
-        // GET: api/Ticket
-        [HttpGet]
+        [HttpGet("Index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet("Ticket")]
         public ActionResult<IEnumerable<Ticket>> Get()
         {
             var tickets = _ticketService.GetAllTickets();
             return Ok(tickets);
         }
 
-        // GET: api/Ticket/5
         [HttpGet("{id}")]
         public ActionResult<Ticket> Get(int id)
         {
             var ticket = _ticketService.GetTicketById(id);
 
-            if (ticket == null) // TODO: Handle nulls
+            if (ticket == null)
             {
-                return NotFound(); // 404
+                return NotFound();
             }
 
             return Ok(ticket);
         }
 
-        // POST: api/Ticket
         [HttpPost]
         public ActionResult<Ticket> Post([FromBody] Ticket? ticket)
         {
-            if (ticket == null)
+            if (ticket == null || !ModelState.IsValid)
             {
-                return BadRequest(); // 400
+                return BadRequest(ModelState);
             }
 
             var createdTicket = _ticketService.CreateTicket(ticket);
+
             if (createdTicket != null)
             {
                 return CreatedAtAction(nameof(Get), new { id = createdTicket.TicketId }, createdTicket);
             }
             else
             {
-                return StatusCode(500, "Failed to create ticket"); // Internal Server Error
+                return StatusCode(500, "Failed to create ticket");
             }
         }
 
-
-        // PUT: api/Ticket/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Ticket? updatedTicket)
         {
-            if (updatedTicket == null || id != updatedTicket.TicketId) // TODO: Handle nulls
+            if (updatedTicket == null || id != updatedTicket.TicketId || !ModelState.IsValid)
             {
-                return BadRequest(); // 400
+                return BadRequest(ModelState);
             }
 
             var existingTicket = _ticketService.GetTicketById(id);
 
-            if (existingTicket == null) // TODO: Handle nulls
+            if (existingTicket == null)
             {
-                return NotFound(); // 404
+                return NotFound();
             }
 
             _ticketService.UpdateTicket(updatedTicket);
 
-            return NoContent(); // 204
+            return NoContent();
         }
 
-        // DELETE: api/Ticket/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var existingTicket = _ticketService.GetTicketById(id);
 
-            if (existingTicket == null) // TODO: Handle nulls
+            if (existingTicket == null)
             {
-                return NotFound(); // 404
+                return NotFound();
             }
 
             _ticketService.DeleteTicket(id);
 
-            return NoContent(); // 204
+            return NoContent();
         }
     }
 }
