@@ -1,6 +1,6 @@
 # AeroAssist Ticketing System
 
-AeroAssist is a simple ticketing system built using ASP.NET Core, Razor Pages, Swagger OpenAPI, and upcoming integration with Microsoft SQL Server database. The system provides basic functionalities for managing tickets, including viewing all tickets, viewing a single ticket, updating a ticket, and deleting a ticket.
+AeroAssist is a versatile ticketing system designed for efficient ticket management. Easily create, view, update, and delete tickets, with comprehensive API documentation provided by Swagger OpenAPI. Streamline your ticketing processes effortlessly.
 
 ## Table of Contents
 
