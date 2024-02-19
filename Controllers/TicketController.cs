@@ -1,4 +1,5 @@
-﻿using AeroAssist.Services;
+﻿using AeroAssist.Pages;
+using AeroAssist.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AeroAssist.Controllers
@@ -11,15 +12,19 @@ namespace AeroAssist.Controllers
     public class TicketController : Controller
     {
         private readonly ITicketService _ticketService;
+        private readonly ILogger<TicketModel> _logger;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketController"/> class.
         /// </summary>
         /// <param name="ticketService">The ticket service.</param>
+        /// <param name="logger">Console logger for debugging purposes.</param>
         /// <exception cref="ArgumentNullException">Thrown when ticketService is null.</exception>
-        public TicketController(ITicketService ticketService)
+        public TicketController(ITicketService ticketService, ILogger<TicketModel> logger)
         {
             _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
+            _logger = logger;
         }
 
         /// <summary>
@@ -39,13 +44,16 @@ namespace AeroAssist.Controllers
         [HttpGet("{id}")]
         public ActionResult<Ticket> Get(int id)
         {
+            _logger.LogInformation($"Get method called with ID: {id}");
             var ticket = _ticketService.GetTicketById(id);
 
             if (ticket == null)
             {
+                _logger.LogError($"No ticket found with ID: {id}");
                 return NotFound();
             }
 
+            _logger.LogInformation($"Successfully fetched ticket with ID: {id}");
             return Ok(ticket);
         }
 
@@ -58,6 +66,7 @@ namespace AeroAssist.Controllers
         {
             if (ticket == null || !ModelState.IsValid)
             {
+                _logger.LogError("Post method called with invalid model state or null ticket");
                 return BadRequest(ModelState);
             }
 
@@ -65,10 +74,12 @@ namespace AeroAssist.Controllers
 
             if (createdTicket != null)
             {
+                _logger.LogInformation($"Successfully created ticket with ID: {createdTicket.TicketId}");
                 return CreatedAtAction(nameof(Get), new { id = createdTicket.TicketId }, createdTicket);
             }
             else
             {
+                _logger.LogError("Failed to create ticket");
                 return StatusCode(500, "Failed to create ticket");
             }
         }

@@ -1,5 +1,5 @@
 ﻿@page
-@model AeroAssist.Models.TicketModel
+@model AeroAssist.Pages.TicketModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Ticket Queue";
@@ -9,13 +9,15 @@
     <h1>Ticket Queue</h1>
     <p>Use this page to view and manage tickets.</p>
     <ul>
-
-        @{
-            System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
-        }
-        @foreach (var ticket in Model.Tickets)
+        @if (Model.Tickets != null)
         {
-            <li>@ticket.Title</li>
+            foreach (var ticket in Model.Tickets)
+            {
+                <li>@ticket.Title</li>
+            }
+        } else
+        {
+            <li>No tickets found.</li>
         }
     </ul>
 </div>

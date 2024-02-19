@@ -48,12 +48,23 @@
         private readonly List<Ticket?> _tickets = new List<Ticket?>();
         private int _nextTicketId = 1;
 
+        private readonly ILogger<TicketService> _logger;
+
+        /// <summary>
+        /// Logging system for Tickets.
+        /// </summary>
+        public TicketService(ILogger<TicketService> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// Retrieves all tickets.
         /// </summary>
         /// <returns>A collection of all tickets.</returns>
         public IEnumerable<Ticket?> GetAllTickets()
         {
+            _logger.LogInformation("GetAllTickets method called");
             return _tickets;
         }
 
@@ -64,7 +75,16 @@
         /// <returns>The ticket if found; otherwise, null.</returns>
         public Ticket? GetTicketById(int id)
         {
-            return _tickets.Find(ticket => ticket != null && ticket.TicketId == id);
+            var ticket = _tickets.Find(ticket => ticket != null && ticket.TicketId == id);
+            if (ticket == null)
+            {
+                _logger.LogError($"No ticket found with ID: {id}");
+            }
+            else
+            {
+                _logger.LogInformation($"Fetched ticket with ID: {id}");
+            }
+            return ticket;
         }
 
         /// <summary>
@@ -77,9 +97,11 @@
         {
             if (ticket == null)
             {
+                _logger.LogError("CreateTicket method called with null ticket");
                 throw new ArgumentNullException(nameof(ticket));
             }
 
+            _logger.LogInformation($"Creating ticket with title: {ticket.Title}");
             ticket.TicketId = _nextTicketId++;
             _tickets.Add(ticket);
 
