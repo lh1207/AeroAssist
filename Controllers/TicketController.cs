@@ -23,15 +23,6 @@ namespace AeroAssist.Controllers
         }
 
         /// <summary>
-        /// Returns the Index view.
-        /// </summary>
-        [HttpGet("Index")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// Retrieves all tickets from the service and returns them.
         /// </summary>
         [HttpGet("Ticket")]
