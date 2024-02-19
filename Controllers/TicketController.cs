@@ -1,27 +1,39 @@
 ﻿using AeroAssist.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 namespace AeroAssist.Controllers
 {
+    /// <summary>
+    /// Handles HTTP requests related to tickets.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TicketController : Controller
     {
         private readonly ITicketService _ticketService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TicketController"/> class.
+        /// </summary>
+        /// <param name="ticketService">The ticket service.</param>
+        /// <exception cref="ArgumentNullException">Thrown when ticketService is null.</exception>
         public TicketController(ITicketService ticketService)
         {
             _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
         }
 
+        /// <summary>
+        /// Returns the Index view.
+        /// </summary>
         [HttpGet("Index")]
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Retrieves all tickets from the service and returns them.
+        /// </summary>
         [HttpGet("Ticket")]
         public ActionResult<IEnumerable<Ticket>> Get()
         {
@@ -29,6 +41,10 @@ namespace AeroAssist.Controllers
             return Ok(tickets);
         }
 
+        /// <summary>
+        /// Retrieves a specific ticket by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the ticket.</param>
         [HttpGet("{id}")]
         public ActionResult<Ticket> Get(int id)
         {
@@ -42,6 +58,10 @@ namespace AeroAssist.Controllers
             return Ok(ticket);
         }
 
+        /// <summary>
+        /// Creates a new ticket.
+        /// </summary>
+        /// <param name="ticket">The ticket to create.</param>
         [HttpPost]
         public ActionResult<Ticket> Post([FromBody] Ticket? ticket)
         {
@@ -62,6 +82,11 @@ namespace AeroAssist.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a specific ticket.
+        /// </summary>
+        /// <param name="id">The ID of the ticket to update.</param>
+        /// <param name="updatedTicket">The updated ticket.</param>
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Ticket? updatedTicket)
         {
@@ -82,6 +107,10 @@ namespace AeroAssist.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a specific ticket.
+        /// </summary>
+        /// <param name="id">The ID of the ticket to delete.</param>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

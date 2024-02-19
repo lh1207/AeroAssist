@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AeroAssist.Controllers;
-
-public class IndexController : Controller
+namespace AeroAssist.Controllers
 {
-    public IActionResult Index()
+    /// <summary>
+    /// Handles HTTP requests related to the index page.
+    /// </summary>
+    public class IndexController : Controller
     {
-        return View();
+        /// <summary>
+        /// Returns the Index view.
+        /// </summary>
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
