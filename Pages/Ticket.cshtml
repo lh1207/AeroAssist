@@ -1,5 +1,5 @@
 ﻿@page
-@model AeroAssist.Pages.TicketModel
+@model AeroAssist.Models.TicketModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Ticket Queue";
@@ -8,13 +8,14 @@
 <div below-nav>
     <h1>Ticket Queue</h1>
     <p>Use this page to view and manage tickets.</p>
-    <p>For example, you could:</p>
     <ul>
-        <li>View a list of all tickets</li>
-        <li>View a single ticket</li>
-        <li>Update a ticket</li>
-        <li>Delete a ticket</li>
+
+        @{
+            System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
+        }
+        @foreach (var ticket in Model.Tickets)
+        {
+            <li>@ticket.Title</li>
+        }
     </ul>
-    <p>For now, this page is just a placeholder. In the future, 
-        it will be a fully functional ticket queue.</p>
 </div>
