@@ -1,24 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
 namespace AeroAssist.Pages
 {
-    public class TicketModel : PageModel
+    public class TicketModel(ILogger<TicketModel> logger)
+        : PageModel
     {
-        private readonly ILogger<TicketModel> _logger;
-        private readonly IHttpClientFactory _clientFactory;
         public List<Ticket>? Tickets { get; set; }
-
-        public TicketModel(IHttpClientFactory clientFactory, ILogger<TicketModel> logger)
-        {
-            _clientFactory = clientFactory;
-            _logger = logger;
-        }
 
         public async Task OnGet()
         {
-            _logger.LogInformation("OnGetAsync method called");
+            logger.LogInformation("OnGetAsync method called");
             var request = new HttpRequestMessage(HttpMethod.Get, "api/Ticket/Ticket");
 
             var handler = new HttpClientHandler();
@@ -38,7 +30,7 @@ namespace AeroAssist.Pages
             }
             else
             {
-                _logger.LogError($"Failed to fetch tickets: {response.StatusCode}");
+                logger.LogError($"Failed to fetch tickets: {response.StatusCode}");
                 Tickets = new List<Ticket>(); // Initialize Tickets as an empty list
             }
         }
