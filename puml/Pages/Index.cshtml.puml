@@ -1,0 +1,6 @@
+@startuml
+class IndexModel {
+    + OnGet() : void
+}
+PageModel <|-- IndexModel
+@enduml

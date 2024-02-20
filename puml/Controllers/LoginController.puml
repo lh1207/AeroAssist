@@ -1,0 +1,6 @@
+@startuml
+class LoginController {
+    + Login() : IActionResult
+}
+Controller <|-- LoginController
+@enduml

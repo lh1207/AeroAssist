@@ -1,0 +1,20 @@
+@startuml
+class Ticket {
+    + TicketId : int <<get>> <<set>>
+    + Description : string? <<get>> <<set>>
+    + Status : string? <<get>> <<set>>
+    + Priority : string? <<get>> <<set>>
+    + Type : string? <<get>> <<set>>
+    + Assignee : string? <<get>> <<set>>
+    + Reporter : string? <<get>> <<set>>
+    + Created : string? <<get>> <<set>>
+    + Updated : string? <<get>> <<set>>
+    + Due : string? <<get>> <<set>>
+    + Resolution : string? <<get>> <<set>>
+    + Comments : string? <<get>> <<set>>
+    + Attachments : string? <<get>> <<set>>
+    + Departments : string? <<get>> <<set>>
+    + CreateTicket() : void
+    + CloseTicket() : void
+}
+@enduml

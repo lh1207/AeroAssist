@@ -1,0 +1,6 @@
+@startuml
+class TicketModel {
+    + OnGet() : void
+}
+PageModel <|-- TicketModel
+@enduml

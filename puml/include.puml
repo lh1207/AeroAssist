@@ -1,0 +1,19 @@
+@startuml
+!include ././Ticket.puml
+!include ././SystemConfig.puml
+!include ././Program.puml
+!include ./Controllers/LoginController.puml
+!include ./Controllers/IndexController.puml
+!include ./Controllers/TicketController.puml
+!include ./Pages/Ticket.cshtml.puml
+!include ./Pages/Index.cshtml.puml
+!include ./Pages/About.cshtml.puml
+!include ./Pages/Login.cshtml.puml
+!include ./Services/TicketService.puml
+!include ./Pages/Shared/_Layout.cshtml.puml
+!include ./obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.puml
+!include ./obj/Debug/net8.0/AeroAssist.MvcApplicationPartsAssemblyInfo.puml
+!include ./obj/Debug/net8.0/AeroAssist.RazorAssemblyInfo.puml
+!include ./obj/Debug/net8.0/AeroAssist.AssemblyInfo.puml
+!include ./obj/Debug/net8.0/AeroAssist.GlobalUsings.g.puml
+@enduml

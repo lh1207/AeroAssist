@@ -1,0 +1,6 @@
+@startuml
+class _LayoutModel {
+    + OnGet() : void
+}
+PageModel <|-- _LayoutModel
+@enduml
