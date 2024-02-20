@@ -6,12 +6,17 @@ effortlessly.
 
 ## Table of Contents
 
+- [Storyboard](#storyboard)
 - [Controllers](#controllers)
 - [Services](#services)
 - [Classes](#classes)
 - [HTML Pages](#html-pages)
 - [Getting Started](#getting-started)
 - [Swagger Documentation](#swagger-documentation)
+
+## Storyboard
+![image](https://github.com/lh1207/AeroAssist/assets/100445409/18926c52-fe08-4d06-9f79-7c43d018a098)
+![image](https://github.com/lh1207/AeroAssist/assets/100445409/445446aa-09e8-4b4b-bf9c-cbacdcf33293)
 
 ## Controllers
 
