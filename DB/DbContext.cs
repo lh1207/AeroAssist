@@ -2,9 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AeroAssist.DB
 {
-    public class AeroAssistContext(DbContextOptions<AeroAssistContext> options, DbSet<Ticket> tickets)
-        : DbContext(options)
+    public class AeroAssistContext : DbContext
     {
-        public DbSet<Ticket> Tickets { get; set; } = tickets;
+        public AeroAssistContext(DbContextOptions<AeroAssistContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

@@ -1,5 +1,7 @@
+using AeroAssist.DB;
 using AeroAssist.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 // Add services from AeroAssist.Services below
-builder.Services.AddSingleton<ITicketService, TicketService>();
+builder.Services.AddScoped<TicketService.ITicketService, TicketService>();
+
+// Add DbContext
+builder.Services.AddDbContext<AeroAssistContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
