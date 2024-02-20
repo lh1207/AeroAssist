@@ -19,6 +19,12 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" NoWarn="NU1605" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Identity.Web" Version="2.15.2" />
 		<PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="2.15.2" />
 		<PackageReference Include="Microsoft.Identity.Web.UI" Version="2.13.4" />
