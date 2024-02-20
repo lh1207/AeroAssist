@@ -1,0 +1,5 @@
+@startuml
+class AeroAssist <<partial>> {
+}
+Migration <|-- AeroAssist
+@enduml

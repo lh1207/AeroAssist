@@ -1,0 +1,5 @@
+@startuml
+class AeroAssistContextModelSnapshot <<partial>> {
+}
+ModelSnapshot <|-- AeroAssistContextModelSnapshot
+@enduml

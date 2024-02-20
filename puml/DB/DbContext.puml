@@ -1,0 +1,9 @@
+@startuml
+class AeroAssistContext {
+    + AeroAssistContext(options:DbContextOptions<AeroAssistContext>)
+}
+class "DbSet`1"<T> {
+}
+DbContext <|-- AeroAssistContext
+AeroAssistContext --> "Tickets<Ticket>" "DbSet`1"
+@enduml
