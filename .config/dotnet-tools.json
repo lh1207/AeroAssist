@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-msidentity"
       ]
+    },
+    "plantumlclassdiagramgenerator": {
+      "version": "1.4.0",
+      "commands": [
+        "puml-gen"
+      ]
     }
   }
 }

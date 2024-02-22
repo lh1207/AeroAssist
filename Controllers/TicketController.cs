@@ -11,7 +11,7 @@ namespace AeroAssist.Controllers
     [ApiController]
     public class TicketController : Controller
     {
-        private readonly ITicketService _ticketService;
+        private readonly TicketService.ITicketService _ticketService;
         private readonly ILogger<TicketModel> _logger;
 
 
@@ -21,7 +21,7 @@ namespace AeroAssist.Controllers
         /// <param name="ticketService">The ticket service.</param>
         /// <param name="logger">Console logger for debugging purposes.</param>
         /// <exception cref="ArgumentNullException">Thrown when ticketService is null.</exception>
-        public TicketController(ITicketService ticketService, ILogger<TicketModel> logger)
+        public TicketController(TicketService.ITicketService ticketService, ILogger<TicketModel> logger)
         {
             _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
             _logger = logger;

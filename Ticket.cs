@@ -98,7 +98,9 @@
         /// <param name="comments">The comments of the ticket.</param>
         /// <param name="attachments">The attachments of the ticket.</param>
         /// <param name="departments">The departments associated with the ticket.</param>
-        public Ticket(int ticketId, string title, string? description, string? status, string? priority, string? type, string? assignee, string? reporter, string? created, string? updated, string? due, string? resolution, string? comments, string? attachments, string? departments)
+        public Ticket(int ticketId, string title, string? description, string? status, string? priority, string? type,
+            string? assignee, string? reporter, string? created, string? updated, string? due, string? resolution,
+            string? comments, string? attachments, string? departments)
         {
             TicketId = ticketId;
             Title = title;

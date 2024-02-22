@@ -1,6 +1,9 @@
 @startuml
 class TicketModel {
-    + OnGet() : void
+    + <<async>> OnGet() : Task
+}
+class "ILogger`1"<T> {
 }
 PageModel <|-- TicketModel
+TicketModel --> "Tickets<Ticket>" "List`1"
 @enduml

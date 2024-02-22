@@ -1,6 +1,7 @@
 @startuml
 class Ticket {
     + TicketId : int <<get>> <<set>>
+    + Title : string <<get>> <<set>>
     + Description : string? <<get>> <<set>>
     + Status : string? <<get>> <<set>>
     + Priority : string? <<get>> <<set>>
@@ -14,6 +15,7 @@ class Ticket {
     + Comments : string? <<get>> <<set>>
     + Attachments : string? <<get>> <<set>>
     + Departments : string? <<get>> <<set>>
+    + Ticket(ticketId:int, title:string, description:string?, status:string?, priority:string?, type:string?, assignee:string?, reporter:string?, created:string?, updated:string?, due:string?, resolution:string?, comments:string?, attachments:string?, departments:string?)
     + CreateTicket() : void
     + CloseTicket() : void
 }
