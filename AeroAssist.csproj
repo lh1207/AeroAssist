@@ -14,6 +14,7 @@
 	  <Content Remove="Page\**" />
 	  <EmbeddedResource Remove="Page\**" />
 	  <None Remove="Page\**" />
+	  <None Include="wwwroot\images\cloud.png" />
 	</ItemGroup>
 
 	<ItemGroup>
