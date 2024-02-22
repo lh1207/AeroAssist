@@ -1,0 +1,22 @@
+@startuml
+class Ticket {
+    + TicketId : int <<get>> <<set>>
+    + Title : string <<get>> <<set>>
+    + Description : string? <<get>> <<set>>
+    + Status : string? <<get>> <<set>>
+    + Priority : string? <<get>> <<set>>
+    + Type : string? <<get>> <<set>>
+    + Assignee : string? <<get>> <<set>>
+    + Reporter : string? <<get>> <<set>>
+    + Created : string? <<get>> <<set>>
+    + Updated : string? <<get>> <<set>>
+    + Due : string? <<get>> <<set>>
+    + Resolution : string? <<get>> <<set>>
+    + Comments : string? <<get>> <<set>>
+    + Attachments : string? <<get>> <<set>>
+    + Departments : string? <<get>> <<set>>
+    + Ticket(ticketId:int, title:string, description:string?, status:string?, priority:string?, type:string?, assignee:string?, reporter:string?, created:string?, updated:string?, due:string?, resolution:string?, comments:string?, attachments:string?, departments:string?)
+    + CreateTicket() : void
+    + CloseTicket() : void
+}
+@enduml

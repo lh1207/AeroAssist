@@ -1,0 +1,23 @@
+﻿@page
+@model AeroAssist.Pages.TicketModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ticket Queue";
+}
+
+<div below-nav>
+    <h1>Ticket Queue</h1>
+    <p>Use this page to view and manage tickets.</p>
+    <ul>
+        @if (Model.Tickets != null)
+        {
+            foreach (var ticket in Model.Tickets)
+            {
+                <li>@ticket.Title</li>
+            }
+        } else
+        {
+            <li>No tickets found.</li>
+        }
+    </ul>
+</div>

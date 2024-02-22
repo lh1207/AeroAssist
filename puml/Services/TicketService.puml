@@ -1,0 +1,14 @@
+@startuml
+class TicketService {
+    + GetAllTickets() : IEnumerable<Ticket?>
+    + GetTicketById(id:int) : Ticket?
+    + CreateTicket(ticket:Ticket?) : Ticket?
+    + UpdateTicket(updatedTicket:Ticket?) : void
+    + DeleteTicket(id:int) : void
+}
+class "ILogger`1"<T> {
+}
+interface ITicketService {
+}
+TicketService +-- ITicketService
+@enduml

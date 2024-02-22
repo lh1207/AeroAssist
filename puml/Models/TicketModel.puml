@@ -1,0 +1,8 @@
+@startuml
+class TicketModel {
+    + TicketModel(client:HttpClient)
+    + <<async>> OnGetAsync(id:int) : Task<IActionResult>
+}
+PageModel <|-- TicketModel
+TicketModel --> "Tickets<Ticket>" "IEnumerable`1"
+@enduml

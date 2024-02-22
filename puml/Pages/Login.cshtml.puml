@@ -1,0 +1,6 @@
+@startuml
+class LoginModel {
+    + OnGet() : void
+}
+PageModel <|-- LoginModel
+@enduml
