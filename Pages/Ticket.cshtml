@@ -20,4 +20,22 @@
             <li>No tickets found.</li>
         }
     </ul>
+
+    <!-- Form for creating a ticket -->
+    <form method="post">
+        <!-- Input fields for ticket properties... -->
+        <button type="submit" asp-page-handler="Create">Create Ticket</button>
+    </form>
+
+    <!-- Form for updating a ticket -->
+    <form method="post">
+        <!-- Input fields for ticket properties... -->
+        <button type="submit" asp-page-handler="Update">Update Ticket</button>
+    </form>
+
+    <!-- Form for deleting a ticket -->
+    <form method="post">
+        <!-- Input field for ticket ID... -->
+        <button type="submit" asp-page-handler="Delete">Delete Ticket</button>
+    </form>
 </div>
