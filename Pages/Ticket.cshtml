@@ -21,21 +21,17 @@
         }
     </ul>
 
-    <!-- Form for creating a ticket -->
-    <form method="post">
-        <!-- Input fields for ticket properties... -->
-        <button type="submit" asp-page-handler="Create">Create Ticket</button>
-    </form>
+    <!-- Button to create a ticket -->
+    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button">Create Ticket</button>
 
-    <!-- Form for updating a ticket -->
-    <form method="post">
-        <!-- Input fields for ticket properties... -->
-        <button type="submit" asp-page-handler="Update">Update Ticket</button>
-    </form>
+    <!-- Button to update a ticket -->
+    <!-- Note: Pass the ticket ID to update -->
+    @{
+        System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
+    }
+    <button onclick="location.href='@Url.Page("/UpdateTicket", new { id = Model.Tickets.First().TicketId })'" type="button">Update Ticket</button>
 
-    <!-- Form for deleting a ticket -->
-    <form method="post">
-        <!-- Input field for ticket ID... -->
-        <button type="submit" asp-page-handler="Delete">Delete Ticket</button>
-    </form>
+    <!-- Button to delete a ticket -->
+    <!-- Note: Pass the ticket ID to delete -->
+    <button onclick="location.href='@Url.Page("/DeleteTicket", new { id = Model.Tickets.First().TicketId })'" type="button">Delete Ticket</button>
 </div>

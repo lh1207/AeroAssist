@@ -1,0 +1,30 @@
+@page
+@model AeroAssist.Pages.TicketModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ticket Details";
+}
+
+<!DOCTYPE html>
+
+<div>
+    <h1>Ticket Details</h1>
+    <p>Use this page to view ticket details.</p>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Ticket.Title"></label>
+            <input asp-for="Ticket.Title" class="form-control" disabled />
+            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Description"></label>
+            <input asp-for="Ticket.Description" class="form-control" disabled />
+            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+
+            <input type="hidden" asp-for="Ticket.TicketId" />
+
+            <a asp-page="/Ticket">Back to List</a>
+        </div>
+    </form>
+</div>

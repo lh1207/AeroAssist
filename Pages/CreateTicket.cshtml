@@ -1,0 +1,40 @@
+@page
+@model AeroAssist.Pages.CreateTicket
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create Ticket";
+}
+
+<!DOCTYPE html>
+
+<div>
+    <h1>Create Ticket</h1>
+    <p>Use this page to create a new ticket.</p>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Ticket.Title"></label>
+            <input asp-for="Ticket.Title" class="form-control" />
+            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Description"></label>
+            <input asp-for="Ticket.Description" class="form-control" />
+            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Priority"></label>
+            <select asp-for="Ticket.Priority" class="form-control">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+
+            <a asp-page="/Ticket">Back to List</a>
+        </div>
+    </form>
+</div>
