@@ -30,5 +30,23 @@ namespace AeroAssist.Models
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostCreateAsync(Ticket ticket)
+        {
+            var response = await _client.PostAsJsonAsync("https://localhost:7223/swagger/api/Ticket", ticket);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUpdateAsync(Ticket ticket)
+        {
+            var response = await _client.PutAsJsonAsync($"https://localhost:7223/swagger/api/Ticket/{ticket.TicketId}", ticket);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var response = await _client.DeleteAsync($"https://localhost:7223/swagger/api/Ticket/{id}");
+            return RedirectToPage();
+        }
     }
 }
