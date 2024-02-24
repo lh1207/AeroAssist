@@ -11,7 +11,7 @@
     <h1>Update Ticket</h1>
     <p>Use this page to update a ticket.</p>
 
-    <form method="post">
+    <form id="updateTicketForm">
         <div class="form-group">
             <label asp-for="Ticket.Title"></label>
             <input asp-for="Ticket.Title" class="form-control" />
@@ -22,20 +22,55 @@
             <input asp-for="Ticket.Description" class="form-control" />
             <span asp-validation-for="Ticket.Description" class="text-danger"></span>
         </div>
-    <div class="form-group">
-        <label asp-for="Ticket.Priority"></label>
-        <select asp-for="Ticket.Priority" class="form-control">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-        </select>
-        <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Ticket.Priority"></label>
+            <select asp-for="Ticket.Priority" class="form-control">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
 
-        <input type="hidden" asp-for="Ticket.TicketId" />
+            <input type="hidden" asp-for="Ticket.TicketId" />
 
-        <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Update</button>
 
-        <a asp-page="/Ticket">Back to List</a>
-    </div>
+            <a asp-page="/Ticket">Back to List</a>
+        </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('updateTicketForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const ticketId = this.elements["Ticket.TicketId"].value;
+            const title = this.elements["Ticket.Title"].value;
+            const description = this.elements["Ticket.Description"].value;
+            const priority = this.elements["Ticket.Priority"].value;
+
+            fetch('https://localhost:7223/api/Ticket/' + ticketId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    TicketId: ticketId,
+                    Title: title,
+                    Description: description,
+                    Priority: priority
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Redirect to a updated page.
+                window.location.href = "/TicketUpdated";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+}
