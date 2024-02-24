@@ -39,35 +39,41 @@
     </form>
 </div>
 
-@section Scripts {
-    <script>
-        document.getElementById('createTicketForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const title = this.elements["Ticket.Title"].value;
-            const description = this.elements["Ticket.Description"].value;
-            const priority = this.elements["Ticket.Priority"].value;
-
-            fetch('https://localhost:7223/api/Ticket', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Title: title,
-                    Description: description,
-                    Priority: priority
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Redirect to a success page
-                window.location.href = "/Success";
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
-}
+@* @section Scripts { *@
+@*     <script> *@
+@*         window.addEventListener('DOMContentLoaded', (event) => { *@
+@*             document.getElementById('createTicketForm').addEventListener('submit', function(event) { *@
+@*                 event.preventDefault(); *@
+@* *@
+@*                 const title = document.querySelector('input[name="Title"]'); *@
+@*                 const description = document.querySelector('input[name="Description"]'); *@
+@*                 const priority = document.querySelector('select[name="Priority"]'); *@
+@* *@
+@*                 if (title && description && priority) { *@
+@*                     fetch('https://localhost:7223/api/Ticket/Ticket', { *@
+@*                         method: 'POST', *@
+@*                         headers: { *@
+@*                             'Content-Type': 'application/json', *@
+@*                         }, *@
+@*                         body: JSON.stringify({ *@
+@*                             Title: title.value, *@
+@*                             Description: description.value, *@
+@*                             Priority: priority.value *@
+@*                         }), *@
+@*                     }) *@
+@*                     .then(response => response.json()) *@
+@*                     .then(data => { *@
+@*                         console.log('Success:', data); *@
+@*                         // Redirect to a success page *@
+@*                         window.location.href = "/Success"; *@
+@*                     }) *@
+@*                     .catch((error) => { *@
+@*                         console.error('Error:', error); *@
+@*                     }); *@
+@*                 } else { *@
+@*                     console.error('Error: Form elements not found'); *@
+@*                 } *@
+@*             }); *@
+@*         }); *@
+@*     </script> *@
+@* } *@

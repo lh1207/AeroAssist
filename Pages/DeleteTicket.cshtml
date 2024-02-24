@@ -31,25 +31,34 @@
     </form>
 </div>
 
-@section Scripts {
-    <script>
-        document.getElementById('deleteTicketForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            var ticketId = this.elements["Ticket.TicketId"].value;
-
-            fetch('/api/Ticket/' + ticketId, {
-                method: 'DELETE',
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Redirect to the success page
-                window.location.href = "/Success";
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
-}
+@* @section Scripts { *@
+@*     <script> *@
+@*         window.onload = function() { *@
+@*             console.log('Script loaded'); *@
+@*             document.getElementById('deleteTicketForm').addEventListener('submit', function(event) { *@
+@*                 console.log('Form submitted'); *@
+@*                 event.preventDefault(); *@
+@* *@
+@*                 const ticketId = this.elements["Ticket.TicketId"].value; *@
+@*                 console.log('Ticket ID:', ticketId); *@
+@* *@
+@*                 fetch('https://localhost:7223/api/Ticket/' + ticketId, { *@
+@*                     method: 'DELETE', *@
+@*                 }) *@
+@*                 .then(response => response.json()) *@
+@*                 .then(response => { *@
+@*                     console.log('API response:', response); *@
+@*                     return response.json(); *@
+@*                 }) *@
+@*                 .then(data => { *@
+@*                     console.log('Success:', data); *@
+@*                     // Redirect to a deleted page. *@
+@*                     window.location.href = "/TicketDeleted"; *@
+@*                 }) *@
+@*                 .catch((error) => { *@
+@*                     console.error('Error:', error); *@
+@*                 }); *@
+@*             }); *@
+@*         } *@
+@*     </script> *@
+@* } *@

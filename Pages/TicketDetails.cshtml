@@ -29,23 +29,23 @@
     </form>
 </div>
 
-@section Scripts {
-    <script>
-        window.addEventListener('load', function() {
-            const ticketId = this.elements["Ticket.TicketId"].value
-            fetch('https://localhost:7223/api/Ticket/' + ticketId)
-            .then(response => response.json())
-            .then(data => {
-                const ticketDetailsDiv = document.getElementById('ticketDetails');
-                ticketDetailsDiv.innerHTML = `
-                    <p>Title: ${data.title}</p>
-                    <p>Description: ${data.description}</p>
-                    <p>Priority: ${data.priority}</p>
-                `;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
-}
+@* @section Scripts { *@
+@*     <script> *@
+@*         window.addEventListener('load', function() { *@
+@*             const ticketId = this.elements["Ticket.TicketId"].value *@
+@*             fetch('https://localhost:7223/api/Ticket/' + ticketId) *@
+@*             .then(response => response.json()) *@
+@*             .then(data => { *@
+@*                 const ticketDetailsDiv = document.getElementById('ticketDetails'); *@
+@*                 ticketDetailsDiv.innerHTML = ` *@
+@*                     <p>Title: ${data.title}</p> *@
+@*                     <p>Description: ${data.description}</p> *@
+@*                     <p>Priority: ${data.priority}</p> *@
+@*                 `; *@
+@*             }) *@
+@*             .catch((error) => { *@
+@*                 console.error('Error:', error); *@
+@*             }); *@
+@*         }); *@
+@*     </script> *@
+@* } *@
