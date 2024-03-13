@@ -23,7 +23,7 @@ public class CreateTicket : PageModel
             {
                 return RedirectToPage("/Success");
             }
-            // else
+            else
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while creating the ticket.");
                 return Page();
