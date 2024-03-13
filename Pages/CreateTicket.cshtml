@@ -12,7 +12,7 @@
     <h1>Create Ticket</h1>
     <p>Use this page to create a new ticket.</p>
 
-    <form id="createTicketForm" method="post" asp-action="CreateTicket">
+    <form id="createTicketForm">
         <div class="form-group">
             <label asp-for="Ticket.Title"></label>
             <input asp-for="Ticket.Title" class="form-control"/>
@@ -24,6 +24,11 @@
             <span asp-validation-for="Ticket.Description" class="text-danger"></span>
         </div>
         <div class="form-group">
+            <label asp-for="Ticket.Status"></label>
+            <input asp-for="Ticket.Status" class="form-control"/>
+            <span asp-validation-for="Ticket.Status" class="text-danger"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="Ticket.Priority"></label>
             <select asp-for="Ticket.Priority" class="form-control">
                 <option value="Low">Low</option>
@@ -31,49 +36,116 @@
                 <option value="High">High</option>
             </select>
             <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
-
-            <button type="submit" class="btn btn-primary">Create</button>
-
-            <a asp-page="/Ticket">Back to List</a>
         </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Type"></label>
+            <input asp-for="Ticket.Type" class="form-control"/>
+            <span asp-validation-for="Ticket.Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Assignee"></label>
+            <input asp-for="Ticket.Assignee" class="form-control"/>
+            <span asp-validation-for="Ticket.Assignee" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Reporter"></label>
+            <input asp-for="Ticket.Reporter" class="form-control"/>
+            <span asp-validation-for="Ticket.Reporter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Created"></label>
+            <input asp-for="Ticket.Created" class="form-control"/>
+            <span asp-validation-for="Ticket.Created" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Updated"></label>
+            <input asp-for="Ticket.Updated" class="form-control"/>
+            <span asp-validation-for="Ticket.Updated" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Due"></label>
+            <input asp-for="Ticket.Due" class="form-control"/>
+            <span asp-validation-for="Ticket.Due" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Resolution"></label>
+            <input asp-for="Ticket.Resolution" class="form-control"/>
+            <span asp-validation-for="Ticket.Resolution" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Comments"></label>
+            <input asp-for="Ticket.Comments" class="form-control"/>
+            <span asp-validation-for="Ticket.Comments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Attachments"></label>
+            <input asp-for="Ticket.Attachments" class="form-control"/>
+            <span asp-validation-for="Ticket.Attachments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Departments"></label>
+            <input asp-for="Ticket.Departments" class="form-control"/>
+            <span asp-validation-for="Ticket.Departments" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+
+        <a asp-page="/Ticket">Back to List</a>
     </form>
 </div>
 
-@* @section Scripts { *@
-@*     <script> *@
-@*         window.addEventListener('DOMContentLoaded', (event) => { *@
-@*             document.getElementById('createTicketForm').addEventListener('submit', function(event) { *@
-@*                 event.preventDefault(); *@
-@* *@
-@*                 const title = document.querySelector('input[name="Title"]'); *@
-@*                 const description = document.querySelector('input[name="Description"]'); *@
-@*                 const priority = document.querySelector('select[name="Priority"]'); *@
-@* *@
-@*                 if (title && description && priority) { *@
-@*                     fetch('https://localhost:7223/api/Ticket/Ticket', { *@
-@*                         method: 'POST', *@
-@*                         headers: { *@
-@*                             'Content-Type': 'application/json', *@
-@*                         }, *@
-@*                         body: JSON.stringify({ *@
-@*                             Title: title.value, *@
-@*                             Description: description.value, *@
-@*                             Priority: priority.value *@
-@*                         }), *@
-@*                     }) *@
-@*                     .then(response => response.json()) *@
-@*                     .then(data => { *@
-@*                         console.log('Success:', data); *@
-@*                         // Redirect to a success page *@
-@*                         window.location.href = "/Success"; *@
-@*                     }) *@
-@*                     .catch((error) => { *@
-@*                         console.error('Error:', error); *@
-@*                     }); *@
-@*                 } else { *@
-@*                     console.error('Error: Form elements not found'); *@
-@*                 } *@
-@*             }); *@
-@*         }); *@
-@*     </script> *@
-@* } *@
+@section Scripts {
+    <script>
+        document.getElementById('createTicketForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = this.elements["Ticket.Title"].value;
+            const description = this.elements["Ticket.Description"].value;
+            const status = this.elements["Ticket.Status"].value;
+            const priority = this.elements["Ticket.Priority"].value;
+            const type = this.elements["Ticket.Type"].value;
+            const assignee = this.elements["Ticket.Assignee"].value;
+            const reporter = this.elements["Ticket.Reporter"].value;
+            const created = this.elements["Ticket.Created"].value;
+            const updated = this.elements["Ticket.Updated"].value;
+            const due = this.elements["Ticket.Due"].value;
+            const resolution = this.elements["Ticket.Resolution"].value;
+            const comments = this.elements["Ticket.Comments"].value;
+            const attachments = this.elements["Ticket.Attachments"].value;
+            const departments = this.elements["Ticket.Departments"].value;
+
+            const ticket = {
+                title: title,
+                description: description,
+                status: status,
+                priority: priority,
+                type: type,
+                assignee: assignee,
+                reporter: reporter,
+                created: created,
+                updated: updated,
+                due: due,
+                resolution: resolution,
+                comments: comments,
+                attachments: attachments,
+                departments: departments
+            };
+
+            fetch('https://localhost:7223/api/Ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(ticket),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = "/Success";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+}
