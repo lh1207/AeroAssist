@@ -5,24 +5,26 @@
     ViewData["Title"] = "Ticket Queue";
 }
 
+
 <div below-nav>
     <h1>Ticket Queue</h1>
-    <p>Use this page to view and manage tickets.</p>
+    <p>Use this page to create, view, and manage tickets.</p>
+
+    <!-- Buttons for CRUD operations -->
+    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button">Create Ticket</button>
+
     <ul>
         @if (Model.Tickets != null)
         {
             foreach (var ticket in Model.Tickets)
             {
-                <li>@ticket.Title</li>
+                <li><a href="/TicketDetails?id=@ticket.TicketId">@ticket.Title</a></li>
             }
         } else
         {
             <li>No tickets found.</li>
         }
     </ul>
-
-    <!-- Buttons for CRUD operations -->
-    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button">Create Ticket</button>
 
     @{
         System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
