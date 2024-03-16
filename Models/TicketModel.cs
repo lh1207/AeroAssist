@@ -21,11 +21,11 @@ namespace AeroAssist.Models
 
             return client;
         }
+        // needed for OnGet
         public List<Ticket>? Tickets { get; set; }
-
         public async Task OnGet()
         {
-            logger.LogInformation("OnGetAsync method called");
+            logger.LogInformation("OnGet method called");
             var request = new HttpRequestMessage(HttpMethod.Get, "api/Ticket/Ticket");
 
             var client = GetHttpClientWithHandler();
@@ -44,11 +44,14 @@ namespace AeroAssist.Models
             }
         }
 
+        // needed for OnPost
+        public Ticket Ticket { get; set; }
+
         // Post to create a new ticket via API endpoint then redirect to success page if success. If not, redirect
         // to error page and show error.
-        public async Task<IActionResult> OnPostAsync(Ticket ticket)
+        public async Task<IActionResult> OnPost(Ticket ticket)
         {
-            logger.LogInformation("OnPostAsync method called");
+            logger.LogInformation("OnPost method called");
 
             var client = GetHttpClientWithHandler();
             var content = new StringContent(JsonConvert.SerializeObject(ticket), Encoding.UTF8, "application/json");
@@ -60,7 +63,7 @@ namespace AeroAssist.Models
             }
             else
             {
-                logger.LogError($"Failed to create ticket: {response.StatusCode}");
+                logger.LogError($"Failed to create ticket: {response.ReasonPhrase}");
                 return RedirectToPage("/Error");
             }
         }

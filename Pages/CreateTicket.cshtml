@@ -1,6 +1,6 @@
 ﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model AeroAssist.Models.TicketModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers;
 
 @{
     Layout = "_Layout";
@@ -13,7 +13,7 @@
     <h1>Create Ticket</h1>
     <p>Use this page to create a new ticket.</p>
 
-    <form id="createTicketForm" method="post" asp-page="/CreateTicket" asp-page-handler="OnPostAsync">
+    <form id="createTicketForm" method="post" asp-page-handler="OnPost">
         @Html.AntiForgeryToken() @* Needed to post successfully without blank page. *@
         <div class="form-group">
             <label asp-for="Ticket.Title"></label>

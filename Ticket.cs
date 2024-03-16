@@ -5,8 +5,7 @@
     /// </summary>
     public class Ticket
     {
-
-        // Parameterless constructor required for deserialization from JSON data in the API.
+        // Parameterless constructor
         public Ticket()
         {
         }
