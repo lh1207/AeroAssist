@@ -23,7 +23,6 @@ namespace AeroAssist.Models
         }
         // needed for OnGet
         public List<Ticket>? Tickets { get; set; }
-        public Ticket Ticket { get; set; }
 
         public async Task OnGet()
         {
@@ -45,6 +44,9 @@ namespace AeroAssist.Models
                 Tickets = new List<Ticket>(); // Initialize Tickets as an empty list
             }
         }
+
+        // needed for OnPost
+        public Ticket Ticket { get; set; }
 
         // Post to create a new ticket via API endpoint then redirect to success page if success. If not, redirect
         // to error page and show error.
