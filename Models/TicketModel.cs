@@ -5,73 +5,95 @@ using Newtonsoft.Json;
 
 namespace AeroAssist.Models
 {
-    public class TicketModel : PageModel
+    [BindProperties(SupportsGet=true)]
+    public class TicketModel(ILogger<TicketModel> logger) : PageModel
     {
-        private readonly HttpClient _client;
-
-        public IEnumerable<Ticket>? Tickets { get; set; }
-
-        public TicketModel(HttpClient client)
+        private HttpClient GetHttpClientWithHandler()
         {
-            _client = client;
+            var handler = new HttpClientHandler();
+
+            // TODO: Remove this line before production
+            handler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var client = new HttpClient(handler);
+            client.BaseAddress = new Uri("https://localhost:7223/");
+
+            return client;
         }
+        public List<Ticket>? Tickets { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task OnGet()
         {
-            var response = await _client.GetAsync($"https://localhost:7223/api/Ticket/{id}");
+            logger.LogInformation("OnGetAsync method called");
+            var request = new HttpRequestMessage(HttpMethod.Get, "api/Ticket/Ticket");
+
+            var client = GetHttpClientWithHandler();
+
+            var response = await client.SendAsync(request);
+
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Tickets = JsonConvert.DeserializeObject<IEnumerable<Ticket>>(json);
-                return RedirectToPage("Success");
+                var responseStream = await response.Content.ReadAsStringAsync();
+                Tickets = JsonConvert.DeserializeObject<List<Ticket>>(responseStream);
             }
             else
             {
-                Tickets = new List<Ticket>();
+                logger.LogError($"Failed to fetch tickets: {response.StatusCode}");
+                Tickets = new List<Ticket>(); // Initialize Tickets as an empty list
             }
-
-            return Page();
         }
 
+        // Post to create a new ticket via API endpoint then redirect to success page if success. If not, redirect
+        // to error page and show error.
         public async Task<IActionResult> OnPostAsync(Ticket ticket)
         {
-            var json = JsonConvert.SerializeObject(ticket);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("https://localhost:7223/api/Ticket", content);
+            logger.LogInformation("OnPostAsync method called");
+
+            var client = GetHttpClientWithHandler();
+            var content = new StringContent(JsonConvert.SerializeObject(ticket), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("api/Ticket/", content);
+
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("Index");
+                return RedirectToPage("/Success");
             }
-            // else
+            else
             {
-                return Page();
+                logger.LogError($"Failed to create ticket: {response.StatusCode}");
+                return RedirectToPage("/Error");
             }
         }
 
-        public async Task<IActionResult> OnPutAsync(Ticket ticket)
+        public async Task<IActionResult> OnPutAsync(int id, Ticket ticket)
         {
-            var json = JsonConvert.SerializeObject(ticket);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync("https://localhost:7223/api/Ticket", content);
+            var client = GetHttpClientWithHandler();
+            var content = new StringContent(JsonConvert.SerializeObject(ticket), Encoding.UTF8, "application/json");
+            var response = await client.PutAsync($"api/Ticket/Ticket/{id}", content);
+
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("Index");
+                return RedirectToPage("/Success");
             }
-            // else
+            else
             {
+                logger.LogError($"Failed to update ticket: {response.StatusCode}");
                 return Page();
             }
         }
 
         public async Task<IActionResult> OnDeleteAsync(int id)
         {
-            var response = await _client.DeleteAsync($"https://localhost:7223/api/Ticket/{id}");
+            var client = GetHttpClientWithHandler();
+            var response = await client.DeleteAsync($"api/Ticket/Ticket/{id}");
+
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("Index");
+                return RedirectToPage("/Success");
             }
-            // else
+            else
             {
+                logger.LogError($"Failed to delete ticket: {response.StatusCode}");
                 return Page();
             }
         }

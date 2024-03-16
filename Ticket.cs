@@ -5,6 +5,12 @@
     /// </summary>
     public class Ticket
     {
+
+        // Parameterless constructor required for deserialization from JSON data in the API.
+        public Ticket()
+        {
+        }
+
         /// <summary>
         /// Gets or sets the ticket ID.
         /// </summary>

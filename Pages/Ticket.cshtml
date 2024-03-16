@@ -1,5 +1,5 @@
 ﻿@page
-@model AeroAssist.Pages.TicketModel
+@model AeroAssist.Models.TicketModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Ticket Queue";
@@ -20,4 +20,17 @@
             <li>No tickets found.</li>
         }
     </ul>
+
+    <!-- Buttons for CRUD operations -->
+    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button">Create Ticket</button>
+
+    @{
+        System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
+    }
+
+    @*<button onclick="location.href='@Url.Page("/UpdateTicket", new { id = Model.Tickets.First().TicketId })'"
+            type="button">Update Ticket</button>
+
+    <button onclick="location.href='@Url.Page("/DeleteTicket", new { id = Model.Tickets.First().TicketId })'"
+            type="button">Delete Ticket</button>*@
 </div>
