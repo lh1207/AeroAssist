@@ -1,0 +1,23 @@
+﻿@page
+@model AeroAssist.Models.TicketModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ticket Details";
+}
+
+<div>
+    <h1>@Model.Ticket.Title</h1>
+    <p>@Model.Ticket.Description</p>
+    <p>Status: @Model.Ticket.Status</p>
+    <p>Priority: @Model.Ticket.Priority</p>
+    <p>Type: @Model.Ticket.Type</p>
+    <p>Assignee: @Model.Ticket.Assignee</p>
+    <p>Reporter: @Model.Ticket.Reporter</p>
+    <p>Created: @Model.Ticket.Created</p>
+    <p>Updated: @Model.Ticket.Updated</p>
+    <p>Due: @Model.Ticket.Due</p>
+    <p>Resolution: @Model.Ticket.Resolution</p>
+    <p>Comments: @Model.Ticket.Comments</p>
+    <p>Attachments: @Model.Ticket.Attachments</p>
+    <p>Departments: @Model.Ticket.Departments</p>
+</div>
