@@ -24,9 +24,23 @@ namespace AeroAssist.Models
         // needed for OnGet
         public List<Ticket>? Tickets { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGet(int? id)
         {
             logger.LogInformation("OnGet method called");
+
+            if (id.HasValue)
+            {
+                await OnGetById(id.Value);
+            }
+            else
+            {
+                await OnGetAll();
+            }
+        }
+
+        public async Task OnGetAll()
+        {
+            logger.LogInformation("OnGetAll method called");
             var request = new HttpRequestMessage(HttpMethod.Get, "api/Ticket/Ticket");
 
             var client = GetHttpClientWithHandler();
@@ -41,12 +55,31 @@ namespace AeroAssist.Models
             else
             {
                 logger.LogError($"Failed to fetch tickets: {response.StatusCode}");
-                Tickets = new List<Ticket>(); // Initialize Tickets as an empty list
+            }
+        }
+
+        public async Task OnGetById(int id)
+        {
+            logger.LogInformation("OnGetById method called");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"api/Ticket/Ticket/{id}");
+
+            var client = GetHttpClientWithHandler();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                Ticket = JsonConvert.DeserializeObject<Ticket>(responseStream);
+            }
+            else
+            {
+                logger.LogError($"Failed to fetch ticket: {response.StatusCode}");
             }
         }
 
         // needed for OnPost
-        public Ticket Ticket { get; set; }
+        public Ticket? Ticket { get; set; }
 
         // Post to create a new ticket via API endpoint then redirect to success page if success. If not, redirect
         // to error page and show error.

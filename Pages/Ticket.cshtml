@@ -18,7 +18,7 @@
         {
             foreach (var ticket in Model.Tickets)
             {
-                <li><a href="/TicketDetails?id=@ticket.TicketId">@ticket.Title</a></li>
+                <li><a href="@Url.Page("/TicketDetails", new { id = ticket.TicketId })">@ticket.Title</a></li>
             }
         } else
         {
