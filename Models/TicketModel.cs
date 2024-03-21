@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -38,6 +39,9 @@ namespace AeroAssist.Models
             }
         }
 
+
+        // needed for OnGet
+        public List<Ticket>? AllTickets { get; set; }
         public async Task OnGetAll()
         {
             logger.LogInformation("OnGetAll method called");
@@ -58,10 +62,10 @@ namespace AeroAssist.Models
             }
         }
 
-        public async Task OnGetById(int id)
+        public async Task<IActionResult> OnGetById(int id)
         {
             logger.LogInformation("OnGetById method called");
-            var request = new HttpRequestMessage(HttpMethod.Get, $"api/Ticket/Ticket/{id}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"api/Ticket/{id}");
 
             var client = GetHttpClientWithHandler();
 
@@ -71,11 +75,18 @@ namespace AeroAssist.Models
             {
                 var responseStream = await response.Content.ReadAsStringAsync();
                 Ticket = JsonConvert.DeserializeObject<Ticket>(responseStream);
+
+                if (Ticket != null) return Page();
+                logger.LogError($"Ticket with id {id} not found");
+                return RedirectToPage("/Error");
             }
             else
             {
                 logger.LogError($"Failed to fetch ticket: {response.StatusCode}");
+                return RedirectToPage("/Error");
             }
+
+            return Page();
         }
 
         // needed for OnPost
@@ -95,7 +106,7 @@ namespace AeroAssist.Models
             {
                 return RedirectToPage("/Success");
             }
-            else
+            // else
             {
                 logger.LogError($"Failed to create ticket: {response.ReasonPhrase}");
                 return RedirectToPage("/Error");

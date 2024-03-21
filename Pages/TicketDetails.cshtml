@@ -5,19 +5,25 @@
     ViewData["Title"] = "Ticket Details";
 }
 
-<div>
-    <h1>@Model.Ticket.TicketId: @Model.Ticket.Title</h1>
-    <p>@Model.Ticket.Description</p>
-    <p>Status: @Model.Ticket.Status</p>
-    <p>Priority: @Model.Ticket.Priority</p>
-    <p>Type: @Model.Ticket.Type</p>
-    <p>Assignee: @Model.Ticket.Assignee</p>
-    <p>Reporter: @Model.Ticket.Reporter</p>
-    <p>Created: @Model.Ticket.Created</p>
-    <p>Updated: @Model.Ticket.Updated</p>
-    <p>Due: @Model.Ticket.Due</p>
-    <p>Resolution: @Model.Ticket.Resolution</p>
-    <p>Comments: @Model.Ticket.Comments</p>
-    <p>Attachments: @Model.Ticket.Attachments</p>
-    <p>Departments: @Model.Ticket.Departments</p>
+<div below-nav>
+    @if (Model.Ticket != null)
+    {
+        var ticket = Model.Ticket;
+        <li>@ticket.Title</li>
+        <li>@ticket.Description</li>
+        <li>@ticket.Status</li>
+        <li>@ticket.Priority</li>
+        <li>@ticket.Type</li>
+        <li>@ticket.Assignee</li>
+        <li>@ticket.Reporter</li>
+        <li>@ticket.Created</li>
+        <li>@ticket.Updated</li>
+        <li>@ticket.Resolution</li>
+        <li>@ticket.Comments</li>
+        <li>@ticket.Attachments</li>
+        <li>@ticket.Departments</li>
+    }
+    @{
+        System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
+    }
 </div>
