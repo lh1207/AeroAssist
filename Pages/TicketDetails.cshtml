@@ -11,8 +11,16 @@
     @{
         System.Diagnostics.Debug.Assert(Model.Ticket != null, "Model.Ticket != null");
     }
-    <button onclick="location.href='@Url.Page("/EditTicket", new { id = Model.Ticket.TicketId})'" type="button">Edit</button>
-    <button onclick="location.href='@Url.Page("/DeleteTicket")'" type="button">Delete</button>
+
+    <button onclick="location.href='@Url.Page("/EditTicket", new { id = Model.Ticket.TicketId})'" type="button" class="btn btn-primary">Edit</button>
+
+    <form method="post"> @* Still posting despite using delete due to form submission *@
+        @Html.AntiForgeryToken() @* Needed to delete successfully without blank page. *@
+        <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="id" value="@Model.Ticket.TicketId" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
     @if (Model.Ticket != null)
     {
         var ticket = Model.Ticket;
@@ -31,6 +39,7 @@
         <li><b>Attachments: </b>@ticket.Attachments</li>
         <li><b>Departments: </b>@ticket.Departments</li>
     }
+    <a href="/Ticket">Back to List</a>
     @{
         System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
     }

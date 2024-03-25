@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace AeroAssist.Models
 {
-    [BindProperties(SupportsGet=true)]
+    [BindProperties(SupportsGet = true)]
     public class TicketModel(AeroAssistContext context, ILogger<TicketModel> logger) : PageModel
     {
         private HttpClient GetHttpClientWithHandler()
@@ -23,6 +23,7 @@ namespace AeroAssist.Models
 
             return client;
         }
+
         // needed for OnGet
         public List<Ticket>? Tickets { get; set; }
 
@@ -43,6 +44,7 @@ namespace AeroAssist.Models
 
         // needed for OnGet
         public List<Ticket>? AllTickets { get; set; }
+
         public async Task OnGetAll()
         {
             logger.LogInformation("OnGetAll method called");
@@ -86,7 +88,6 @@ namespace AeroAssist.Models
                 logger.LogError($"Failed to fetch ticket: {response.StatusCode}");
                 return RedirectToPage("/Error");
             }
-
             return Page();
         }
 
@@ -95,6 +96,7 @@ namespace AeroAssist.Models
 
         // Post to create a new ticket via API endpoint then redirect to success page if success. If not, redirect
         // to error page and show error.
+        // Form data is parsed through Request.Form to determine if the request is a PUT or DELETE request.
         public async Task<IActionResult> OnPost(Ticket ticket)
         {
             logger.LogInformation($"Form data before parsing id: {Request.Form}");
@@ -108,6 +110,19 @@ namespace AeroAssist.Models
                     logger.LogInformation($"OnPut method called with ID: {id}");
                     ticket.TicketId = id; // Set the TicketId in the ticket object
                     return await OnPut(id, ticket);
+                }
+                else
+                {
+                    logger.LogError("Failed to parse id from form data");
+                    return Page();
+                }
+            }
+
+            if (Request.Form["_method"] == "delete")
+            {
+                if (int.TryParse(Request.Form["id"], out int id)) // Parse the id from the form data
+                {
+                    return await OnDelete(id, ticket);
                 }
                 else
                 {
@@ -180,20 +195,33 @@ namespace AeroAssist.Models
             return context.Tickets.Any(e => e.TicketId == id);
         }
 
-        public async Task<IActionResult> OnDelete(int id)
+        public async Task<IActionResult> OnDelete(int id, Ticket deletedTicket)
         {
-            var client = GetHttpClientWithHandler();
-            var response = await client.DeleteAsync($"api/Ticket/{id}");
+            var existingTicket = await context.Tickets.FindAsync(id);
+            if (existingTicket == null)
+            {
+                return NotFound();
+            }
 
-            if (response.IsSuccessStatusCode)
+            context.Tickets.Remove(existingTicket);
+
+            try
             {
-                return RedirectToPage("/Success");
+                await context.SaveChangesAsync();
             }
-            else
+            catch (DbUpdateConcurrencyException)
             {
-                logger.LogError($"Failed to delete ticket: {response.StatusCode}");
-                return Page();
+                if (!TicketExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return Page();
         }
     }
 }
