@@ -11,7 +11,7 @@
     <p>Use this page to create, view, and manage tickets.</p>
 
     <!-- Buttons for CRUD operations -->
-    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button">Create Ticket</button>
+    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button" class="btn btn-primary">Create Ticket</button>
 
     <ul>
         @if (Model.Tickets != null)
