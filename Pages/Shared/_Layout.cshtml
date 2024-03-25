@@ -49,6 +49,31 @@
             width: 60px;
             height: 40px;
         }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        /* Hover color for all rows */
+        .clickable-row:hover {
+            background-color: #9ce5ff; !important; /* Light blue */
+            cursor: pointer;
+        }
+
+        /* Light color for odd rows */
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f8f9fa; /* Light gray */
+        }
+
+        /* Dark color for even rows */
+        .table-striped tbody tr:nth-child(even) {
+            background-color: #e9ecef; /* Darker gray */
+        }
+
+
     </style>
 
 </head>
