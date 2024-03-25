@@ -221,7 +221,7 @@ namespace AeroAssist.Models
                 }
             }
 
-            return Page();
+            return RedirectToPage("/Ticket");
         }
     }
 }
