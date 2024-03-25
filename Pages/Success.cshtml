@@ -1,5 +1,4 @@
 @page
-@model AeroAssist.Pages.TicketModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Success";
@@ -7,27 +6,15 @@
 
 <!DOCTYPE html>
 
-
+<html lang="en-US">
+<head>
+    <title>Success</title>
+</head>
 <body>
 <div>
     <h1>Success</h1>
-    <p>Operations successful.</p>
-    <form id="ticketDetailsForm">
-        <div class="form-group">
-            <label asp-for="Ticket.Title"></label>
-            <input asp-for="Ticket.Title" class="form-control" disabled/>
-            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Ticket.Description"></label>
-            <input asp-for="Ticket.Description" class="form-control" disabled/>
-            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
-
-            <input type="hidden" asp-for="Ticket.TicketId"/>
-
-            <a asp-page="/Ticket">Back to List</a>
-
-        </div>
-        </form>
-    </div>
+    <p>Your request has been successfully submitted.</p>
+    <p>Thank you for your business!</p>
+</div>
 </body>
+</html>

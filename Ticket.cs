@@ -1,13 +1,23 @@
-﻿namespace AeroAssist
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AeroAssist
 {
     /// <summary>
     /// Represents a ticket in the AeroAssist system.
     /// </summary>
     public class Ticket
     {
+        // Parameterless constructor
+        public Ticket()
+        {
+        }
+
         /// <summary>
         /// Gets or sets the ticket ID.
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TicketId { get; set; }
 
         /// <summary>
