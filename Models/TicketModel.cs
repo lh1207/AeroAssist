@@ -1,13 +1,14 @@
-using System.Net;
 using System.Text;
+using AeroAssist.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace AeroAssist.Models
 {
     [BindProperties(SupportsGet=true)]
-    public class TicketModel(ILogger<TicketModel> logger) : PageModel
+    public class TicketModel(AeroAssistContext context, ILogger<TicketModel> logger) : PageModel
     {
         private HttpClient GetHttpClientWithHandler()
         {
@@ -96,7 +97,26 @@ namespace AeroAssist.Models
         // to error page and show error.
         public async Task<IActionResult> OnPost(Ticket ticket)
         {
-            logger.LogInformation("OnPost method called");
+            logger.LogInformation($"Form data before parsing id: {Request.Form}");
+
+            if (Request.Form["_method"] == "put")
+            {
+                logger.LogInformation($"id from form data: {Request.Form["id"]}");
+
+                if (int.TryParse(Request.Form["id"], out int id)) // Parse the id from the form data
+                {
+                    logger.LogInformation($"OnPut method called with ID: {id}");
+                    ticket.TicketId = id; // Set the TicketId in the ticket object
+                    return await OnPut(id, ticket);
+                }
+                else
+                {
+                    logger.LogError("Failed to parse id from form data");
+                    return Page();
+                }
+            }
+
+            logger.LogInformation($"Form data after parsing id: {Request.Form}");
 
             var client = GetHttpClientWithHandler();
             var content = new StringContent(JsonConvert.SerializeObject(ticket), Encoding.UTF8, "application/json");
@@ -106,34 +126,64 @@ namespace AeroAssist.Models
             {
                 return RedirectToPage("/Success");
             }
-            // else
+            else
             {
                 logger.LogError($"Failed to create ticket: {response.ReasonPhrase}");
                 return RedirectToPage("/Error");
             }
         }
 
-        public async Task<IActionResult> OnPutAsync(int id, Ticket ticket)
+        public async Task<IActionResult> OnPut(int id, Ticket updatedTicket)
         {
-            var client = GetHttpClientWithHandler();
-            var content = new StringContent(JsonConvert.SerializeObject(ticket), Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"api/Ticket/Ticket/{id}", content);
+            var existingTicket = await context.Tickets.FindAsync(id);
+            if (existingTicket == null)
+            {
+                return NotFound();
+            }
 
-            if (response.IsSuccessStatusCode)
+            existingTicket.Title = updatedTicket.Title;
+            existingTicket.Description = updatedTicket.Description;
+            existingTicket.Status = updatedTicket.Status;
+            existingTicket.Priority = updatedTicket.Priority;
+            existingTicket.Type = updatedTicket.Type;
+            existingTicket.Assignee = updatedTicket.Assignee;
+            existingTicket.Reporter = updatedTicket.Reporter;
+            existingTicket.Created = updatedTicket.Created;
+            existingTicket.Updated = updatedTicket.Updated;
+            existingTicket.Due = updatedTicket.Due;
+            existingTicket.Resolution = updatedTicket.Resolution;
+            existingTicket.Comments = updatedTicket.Comments;
+            existingTicket.Attachments = updatedTicket.Attachments;
+            existingTicket.Departments = updatedTicket.Departments;
+
+            try
             {
-                return RedirectToPage("/Success");
+                await context.SaveChangesAsync();
             }
-            else
+            catch (DbUpdateConcurrencyException)
             {
-                logger.LogError($"Failed to update ticket: {response.StatusCode}");
-                return Page();
+                if (!TicketExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return Page();
         }
 
-        public async Task<IActionResult> OnDeleteAsync(int id)
+        private bool TicketExists(int id)
+        {
+            return context.Tickets.Any(e => e.TicketId == id);
+        }
+
+        public async Task<IActionResult> OnDelete(int id)
         {
             var client = GetHttpClientWithHandler();
-            var response = await client.DeleteAsync($"api/Ticket/Ticket/{id}");
+            var response = await client.DeleteAsync($"api/Ticket/{id}");
 
             if (response.IsSuccessStatusCode)
             {

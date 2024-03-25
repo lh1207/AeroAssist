@@ -1,4 +1,7 @@
-﻿namespace AeroAssist
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AeroAssist
 {
     /// <summary>
     /// Represents a ticket in the AeroAssist system.
@@ -13,6 +16,8 @@
         /// <summary>
         /// Gets or sets the ticket ID.
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TicketId { get; set; }
 
         /// <summary>

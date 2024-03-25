@@ -4,17 +4,24 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Create Ticket";
+    ViewData["Title"] = "Edit Ticket";
 }
 
 <!DOCTYPE html>
 
-<div below-nav>
-    <h1>Create Ticket</h1>
-    <p>Use this page to create a new ticket.</p>
+<html lang="en">
 
-    <form id="createTicketForm" method="post" asp-page-handler="OnPostAsync">
-        @Html.AntiForgeryToken() @* Needed to post successfully without blank page. *@
+<head>
+    <title></title>
+</head>
+<body>
+<div below-nav>
+    <form id="editTicketForm" method="post" asp-page-handler="OnPut"> @* Still posting despite using put *@
+        @Html.AntiForgeryToken() @* Needed to put successfully without blank page. *@
+        <input type="hidden" name="_method" value="put" />
+        <input type="hidden" name="id" value="@Model.Ticket.TicketId" />
+        <input type="hidden" asp-for="Ticket.TicketId" />
+        <span asp-validation-for="Ticket.TicketId" class="text-danger"></span>
         <div class="form-group">
             <label asp-for="Ticket.Title"></label>
             <input asp-for="Ticket.Title" class="form-control"/>
@@ -95,11 +102,5 @@
         <a href="/Ticket">Back to List</a>
     </form>
 </div>
-
-@section Scripts {
-    <script>
-    document.getElementById('createTicketForm').addEventListener('submit', function() {
-        console.log('Form submitted');
-    });
-    </script>
-}
+</body>
+</html>

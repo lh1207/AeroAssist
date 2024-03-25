@@ -6,22 +6,30 @@
 }
 
 <div below-nav>
+    <h1>Ticket Details</h1>
+
+    @{
+        System.Diagnostics.Debug.Assert(Model.Ticket != null, "Model.Ticket != null");
+    }
+    <button onclick="location.href='@Url.Page("/EditTicket", new { id = Model.Ticket.TicketId})'" type="button">Edit</button>
+    <button onclick="location.href='@Url.Page("/DeleteTicket")'" type="button">Delete</button>
     @if (Model.Ticket != null)
     {
         var ticket = Model.Ticket;
-        <li>@ticket.Title</li>
-        <li>@ticket.Description</li>
-        <li>@ticket.Status</li>
-        <li>@ticket.Priority</li>
-        <li>@ticket.Type</li>
-        <li>@ticket.Assignee</li>
-        <li>@ticket.Reporter</li>
-        <li>@ticket.Created</li>
-        <li>@ticket.Updated</li>
-        <li>@ticket.Resolution</li>
-        <li>@ticket.Comments</li>
-        <li>@ticket.Attachments</li>
-        <li>@ticket.Departments</li>
+        <li><b>TicketId: </b>@ticket.TicketId</li>
+        <li><b>Title: </b>@ticket.Title</li>
+        <li><b>Description: </b>@ticket.Description</li>
+        <li><b>Status: </b>@ticket.Status</li>
+        <li><b>Priority: </b>@ticket.Priority</li>
+        <li><b>Type: </b>@ticket.Type</li>
+        <li><b>Assignee: </b>@ticket.Assignee</li>
+        <li><b>Reporter: </b>@ticket.Reporter</li>
+        <li><b>Create: </b>@ticket.Created</li>
+        <li><b>Updated: </b>@ticket.Updated</li>
+        <li><b>Resolution: </b>@ticket.Resolution</li>
+        <li><b>Comments: </b>@ticket.Comments</li>
+        <li><b>Attachments: </b>@ticket.Attachments</li>
+        <li><b>Departments: </b>@ticket.Departments</li>
     }
     @{
         System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
