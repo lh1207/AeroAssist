@@ -2,6 +2,7 @@ using AeroAssist.DB;
 using AeroAssist.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,5 +46,8 @@ app.MapControllers();
 
 // Map Razor Pages
 app.MapRazorPages();
+
+// Map static files via wwwroot folder (e.g. images)
+app.UseStaticFiles();
 
 app.Run();
