@@ -2,9 +2,9 @@
 
 namespace AeroAssist.Models;
 
-public class ErrorModel : PageModel
+public class ErrorModel(string errorCode) : PageModel
 {
-    public string ErrorCode { get; set; }
+    public string ErrorCode { get; set; } = errorCode;
 
     public void OnGet(string errorCode)
     {
