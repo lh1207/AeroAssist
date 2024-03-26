@@ -58,17 +58,14 @@ namespace AeroAssist
         /// <summary>
         /// Gets or sets the creation date of the ticket.
         /// </summary>
-        public string? Created { get; set; }
+        [Column(TypeName = "DATETIME")]
+        public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last updated date of the ticket.
-        /// </summary>
-        public string? Updated { get; set; }
+        [Column(TypeName = "DATETIME")]
+        public DateTime Updated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the due date of the ticket.
-        /// </summary>
-        public string? Due { get; set; }
+        [Column(TypeName = "DATETIME")]
+        public DateTime? Due { get; set; }
 
         /// <summary>
         /// Gets or sets the resolution of the ticket.
@@ -109,7 +106,7 @@ namespace AeroAssist
         /// <param name="attachments">The attachments of the ticket.</param>
         /// <param name="departments">The departments associated with the ticket.</param>
         public Ticket(int ticketId, string title, string? description, string? status, string? priority, string? type,
-            string? assignee, string? reporter, string? created, string? updated, string? due, string? resolution,
+            string? assignee, string? reporter, DateTime created, DateTime updated, DateTime? due, string? resolution,
             string? comments, string? attachments, string? departments)
         {
             TicketId = ticketId;
