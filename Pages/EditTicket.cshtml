@@ -53,27 +53,32 @@
         </div>
         <div class="form-group">
             <label asp-for="Ticket.Assignee"></label>
-            <input asp-for="Ticket.Assignee" class="form-control"/>
+            <select asp-for="Ticket.Assignee" class="form-control">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.UserName">@user.UserName</option>
+                }
+            </select>
             <span asp-validation-for="Ticket.Assignee" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Ticket.Reporter"></label>
-            <input asp-for="Ticket.Reporter" class="form-control"/>
+            <input asp-for="Ticket.Reporter" class="form-control" value="@Model.CurrentUserName" readonly/>
             <span asp-validation-for="Ticket.Reporter" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Ticket.Created"></label>
-            <input asp-for="Ticket.Created" class="form-control"/>
+            <input asp-for="Ticket.Created" class="form-control" readonly/>
             <span asp-validation-for="Ticket.Created" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Ticket.Updated"></label>
-            <input asp-for="Ticket.Updated" class="form-control"/>
+            <input asp-for="Ticket.Updated" class="form-control" readonly/>
             <span asp-validation-for="Ticket.Updated" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Ticket.Due"></label>
-            <input asp-for="Ticket.Due" class="form-control"/>
+            <input asp-for="Ticket.Due" type="date" class="form-control"/>
             <span asp-validation-for="Ticket.Due" class="text-danger"></span>
         </div>
         <div class="form-group">

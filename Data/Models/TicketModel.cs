@@ -1,15 +1,20 @@
 using System.Text;
 using AeroAssist.DB;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using SQLitePCL;
 
 namespace AeroAssist.Models
 {
     [BindProperties(SupportsGet = true)]
-    public class TicketModel(AeroAssistContext context, ILogger<TicketModel> logger) : PageModel
+    public class TicketModel(UserManager<IdentityUser> userManager, ILogger<TicketModel> logger, AeroAssistContext context) : PageModel
     {
+        public List<IdentityUser> Users => userManager.Users.ToList();
+        public string? CurrentUserName => userManager.GetUserName(User);
+
         private HttpClient GetHttpClientWithHandler()
         {
             var handler = new HttpClientHandler();
@@ -131,6 +136,17 @@ namespace AeroAssist.Models
                 }
             }
 
+            // Set the Created and Updated properties to the current date and time
+            ticket.Created = DateTime.Now;
+            ticket.Updated = DateTime.Now;
+
+            // Set the Due property to 7 days after the current date and time
+            // only when a new ticket is being created
+            if (ticket.TicketId == 0)
+            {
+                ticket.Due = DateTime.Now.AddDays(7);
+            }
+
             logger.LogInformation($"Form data after parsing id: {Request.Form}");
 
             var client = GetHttpClientWithHandler();
@@ -164,8 +180,11 @@ namespace AeroAssist.Models
             existingTicket.Assignee = updatedTicket.Assignee;
             existingTicket.Reporter = updatedTicket.Reporter;
             existingTicket.Created = updatedTicket.Created;
-            existingTicket.Updated = updatedTicket.Updated;
-            existingTicket.Due = updatedTicket.Due;
+            // Update the Due property if it has been changed
+            if (existingTicket.Due != updatedTicket.Due)
+            {
+                existingTicket.Due = updatedTicket.Due;
+            }
             existingTicket.Resolution = updatedTicket.Resolution;
             existingTicket.Comments = updatedTicket.Comments;
             existingTicket.Attachments = updatedTicket.Attachments;
@@ -187,7 +206,7 @@ namespace AeroAssist.Models
                 }
             }
 
-            return Page();
+            return RedirectToPage("/Success");
         }
 
         private bool TicketExists(int id)

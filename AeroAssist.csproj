@@ -4,8 +4,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<InvariantGlobalization>true</InvariantGlobalization>
-		<UserSecretsId>aspnet-AeroAssist-fdbb9cad-a0c2-45dd-86d0-a624ad389716</UserSecretsId>
+		<InvariantGlobalization>false</InvariantGlobalization>
+		<UserSecretsId>aspnet-AeroAssist</UserSecretsId>
 		<LangVersion>latestmajor</LangVersion>
 	</PropertyGroup>
 
@@ -19,13 +19,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="8.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Identity.Web" Version="2.15.2" />
 		<PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="2.15.2" />
 		<PackageReference Include="Microsoft.Identity.Web.UI" Version="2.13.4" />
@@ -35,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\" />
+	  <Folder Include="Data\" />
 	</ItemGroup>
 
 </Project>
