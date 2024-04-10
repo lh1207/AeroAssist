@@ -1,23 +1,33 @@
 using AeroAssist.DB;
 using AeroAssist.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
+using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+var config = builder.Configuration;
 
 // Add services from AeroAssist.Services below
 builder.Services.AddScoped<TicketService.ITicketService, TicketService>();
 
 // Add DbContext
 builder.Services.AddDbContext<AeroAssistContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AeroAssistContext>();
+
+builder.Services.AddAuthentication()
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = config["Authentication:Microsoft:ClientId"];
+        microsoftOptions.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
+    });
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
