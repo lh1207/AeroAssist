@@ -1,4 +1,4 @@
-using AeroAssist.DB;
+﻿using AeroAssist.DB;
 using AeroAssist.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +16,12 @@ var config = builder.Configuration;
 builder.Services.AddScoped<TicketService.ITicketService, TicketService>();
 
 // Add DbContext
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<AeroAssistContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AeroAssistContext>();
 
 builder.Services.AddAuthentication()
@@ -28,6 +30,7 @@ builder.Services.AddAuthentication()
         microsoftOptions.ClientId = config["Authentication:Microsoft:ClientId"];
         microsoftOptions.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
     });
+
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
