@@ -45,6 +45,10 @@ namespace AeroAssist
         /// </summary>
         public string? Type { get; set; }
 
+        public string? Subtype { get; set; }
+
+        public string? Item { get; set; }
+
         /// <summary>
         /// Gets or sets the assignee of the ticket.
         /// </summary>
@@ -96,6 +100,8 @@ namespace AeroAssist
         /// <param name="status">The status of the ticket.</param>
         /// <param name="priority">The priority of the ticket.</param>
         /// <param name="type">The type of the ticket.</param>
+        /// <param name="subtype">The subtype of the ticket.</param>
+        /// <param name="item">The subtype supplement.</param>
         /// <param name="assignee">The assignee of the ticket.</param>
         /// <param name="reporter">The reporter of the ticket.</param>
         /// <param name="created">The creation date of the ticket.</param>
@@ -105,7 +111,7 @@ namespace AeroAssist
         /// <param name="comments">The comments of the ticket.</param>
         /// <param name="attachments">The attachments of the ticket.</param>
         /// <param name="departments">The departments associated with the ticket.</param>
-        public Ticket(int ticketId, string title, string? description, string? status, string? priority, string? type,
+        public Ticket(int ticketId, string title, string? description, string? status, string? priority, string? type, string? subtype, string? item,
             string? assignee, string? reporter, DateTime created, DateTime updated, DateTime? due, string? resolution,
             string? comments, string? attachments, string? departments)
         {
@@ -115,6 +121,8 @@ namespace AeroAssist
             Status = status;
             Priority = priority;
             Type = type;
+            Subtype = subtype;
+            Item = item;
             Assignee = assignee;
             Reporter = reporter;
             Created = created;
