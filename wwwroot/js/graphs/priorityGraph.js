@@ -50,7 +50,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: maxValue + 10 // Set the maximum value to be higher than the highest value in the dataset
+                            max: maxValue + 1 // Set the maximum value to be higher than the highest value in the dataset
                         }
                     }
                 },
