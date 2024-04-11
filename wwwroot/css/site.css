@@ -26,3 +26,23 @@ body {
     width: 60px;
     height: 40px;
 }
+
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.bar-graph canvas
+{
+    width: 1260px;
+    height: 500px;
+    margin: 20px;
+
+}
+
+canvas {
+    width: 500px;
+    height: 500px;
+    margin: 20px;
+}

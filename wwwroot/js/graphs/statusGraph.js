@@ -23,12 +23,9 @@
             // Convert the statusCounts object into an array in the same order as the labels
             let graphData = ['Open', 'In-Progress', 'Resolved', 'Closed', 'Canceled'].map(status => statusCounts[status]);
 
-            // Calculate the maximum value in your data
-            let maxValue = Math.max(...graphData);
-
             const ctx = document.getElementById('ticketStatusChart').getContext('2d');
             window.ticketStatusChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'doughnut',
                 data: {
                     labels: ['Open', 'In-Progress', 'Resolved', 'Closed', 'Canceled'],
                     datasets: [{
@@ -52,16 +49,8 @@
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: maxValue + 1, // Set the maximum value to be higher than the highest value in the dataset
-                            ticks: {
-                                stepSize: 1
-                            }
-
-                        }
-                    }
+                    responsive: false,
+                    maintainAspectRatio: false,
                 }
             });
         },

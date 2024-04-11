@@ -41,9 +41,12 @@
             let labels = Object.keys(departmentCounts);
             let graphData = Object.values(departmentCounts);
 
+            // Calculate the maximum value in dataset
+            let maxValue = Math.max(...graphData);
+
             const ctx = document.getElementById('ticketDepartmentChart').getContext('2d');
             window.ticketDepartmentChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
@@ -68,7 +71,17 @@
                 },
                 options: {
                     responsive: false,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: maxValue + 1, // Set the maximum value to be higher than the highest value in the dataset
+                            ticks: {
+                                stepSize: 1
+                            }
+
+                        }
+                    }
                 },
             });
         },

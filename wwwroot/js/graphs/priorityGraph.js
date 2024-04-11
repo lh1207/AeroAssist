@@ -27,7 +27,7 @@
 
             const ctx = document.getElementById('ticketPriorityChart').getContext('2d');
             window.ticketPriorityChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'doughnut',
                 data: {
                     labels: ['Low', 'Medium', 'High'],
                     datasets: [{
@@ -47,15 +47,8 @@
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: maxValue + 1, // Set the maximum value to be higher than the highest value in the dataset
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    }
+                    responsive: false,
+                    maintainAspectRatio: false
                 },
             });
         },
