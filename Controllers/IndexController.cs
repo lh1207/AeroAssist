@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AeroAssist.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AeroAssist.Controllers
 {
     /// <summary>
     /// Handles HTTP requests related to the index page.
     /// </summary>
-    public class IndexController : Controller
+    public class IndexController(AeroAssistContext context) : Controller
     {
-        /// <summary>
-        /// Returns the Index view.
-        /// </summary>
         public IActionResult Index()
         {
-            return View();
+            var tickets = context.Tickets.ToList();
+            return View(tickets);
         }
     }
 }

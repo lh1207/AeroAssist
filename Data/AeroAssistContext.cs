@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AeroAssist.DB
+namespace AeroAssist.Data
 {
     public class AeroAssistContext : IdentityDbContext<IdentityUser>
     {
@@ -12,5 +12,10 @@ namespace AeroAssist.DB
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        public async Task<List<Ticket>> GetAllTicketsAsync()
+        {
+            return await Tickets.ToListAsync();
+        }
     }
 }

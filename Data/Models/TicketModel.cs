@@ -1,11 +1,10 @@
 using System.Text;
-using AeroAssist.DB;
+using AeroAssist.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using SQLitePCL;
 
 namespace AeroAssist.Models
 {

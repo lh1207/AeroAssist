@@ -7,6 +7,7 @@
 		<InvariantGlobalization>false</InvariantGlobalization>
 		<UserSecretsId>aspnet-AeroAssist</UserSecretsId>
 		<LangVersion>latestmajor</LangVersion>
+		<ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,11 +37,10 @@
 		<PackageReference Include="Microsoft.Identity.Web.UI" Version="2.13.4" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="ScottPlot" Version="5.0.25" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Data\" />
+		<PackageReference Include="System.Linq" Version="4.3.0" />
+		<PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
 	</ItemGroup>
 
 </Project>
