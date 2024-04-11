@@ -26,13 +26,13 @@
             // Calculate the maximum value in your data
             let maxValue = Math.max(...graphData);
 
-            const ctx = document.getElementById('ticketCountChart').getContext('2d');
-            window.ticketCountChart = new Chart(ctx, {
+            const ctx = document.getElementById('ticketStatusChart').getContext('2d');
+            window.ticketStatusChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Open', 'In-Progress', 'Resolved', 'Closed', 'Canceled'],
                     datasets: [{
-                        label: 'Ticket Count',
+                        label: 'Tickets by Status',
                         data: graphData,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -55,7 +55,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: maxValue + 10 // Set the maximum value to be 10 units higher than the highest value in the dataset
+                            max: maxValue + 10 // Set the maximum value to be higher than the highest value in the dataset
                         }
                     }
                 }
