@@ -1,12 +1,30 @@
 ﻿@page
+@using System.Linq
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Home";
 }
 
 <div>
-    <h1>Welcome to AeroAssist!</h1>
-    <p>This is a placeholder for the home page. In the future, 
-        it will be a fully functional home page with an overview of tickets, users, and graphs.</p>
-    <p>For now, you can view create, edit, and delete tickets via the <a href="/Ticket">Ticket Queue</a>.</p>
+    <h1>Overview</h1>
 </div>
+
+<div class="chart-container">
+    <canvas id="ticketPriorityChart"></canvas>
+    <canvas id="ticketStatusChart"></canvas>
+</div>
+
+<div class="bar-graph">
+    <canvas id="ticketDepartmentChart"></canvas>
+</div>
+
+@section scripts {
+    <script>
+        var graphData = @Html.Raw(Json.Serialize(ViewData["GraphData"]));
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="~/js/graphs/statusGraph.js"></script>
+    <script src="~/js/graphs/priorityGraph.js"></script>
+    <script src="~/js/graphs/departmentGraph.js"></script>
+}
