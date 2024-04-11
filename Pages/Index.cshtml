@@ -9,8 +9,11 @@
     <h1>Overview</h1>
 </div>
 
-<canvas id="ticketStatusChart"></canvas>
-<canvas id="ticketPriorityChart"></canvas>
+<div class="chart-container">
+    <canvas id="ticketPriorityChart"></canvas>
+    <canvas id="ticketDepartmentChart"></canvas>
+    <canvas id="ticketStatusChart"></canvas>
+</div>
 
 @section scripts {
     <script>
@@ -20,4 +23,5 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="~/js/graphs/statusGraph.js"></script>
     <script src="~/js/graphs/priorityGraph.js"></script>
+    <script src="~/js/graphs/departmentGraph.js"></script>
 }
