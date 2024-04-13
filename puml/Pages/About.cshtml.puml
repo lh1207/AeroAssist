@@ -1,0 +1,6 @@
+@startuml
+class AboutModel {
+    + OnGet() : void
+}
+PageModel <|-- AboutModel
+@enduml

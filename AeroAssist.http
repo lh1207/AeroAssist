@@ -1,0 +1,6 @@
+@AeroAssist_HostAddress = http://localhost:5000
+
+GET {{AeroAssist_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

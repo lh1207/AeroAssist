@@ -1,0 +1,11 @@
+@startuml
+class SystemConfig {
+    + ConfigId : int <<get>> <<set>>
+    + ConfigName : string <<get>> <<set>>
+    + ConfigValue : string <<get>> <<set>>
+    + SystemConfig(configId:int, configName:string, configValue:string)
+    + CreateConfig() : void
+    + UpdateConfig() : void
+    + DeleteConfig() : void
+}
+@enduml

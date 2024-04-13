@@ -1,0 +1,62 @@
+@page
+@model AeroAssist.Models.TicketModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ticket Queue";
+}
+
+<div below-nav>
+    <h1>Ticket Queue</h1>
+    <p>Use this page to create, view, and manage tickets.</p>
+
+    <!-- Buttons for CRUD operations -->
+    <button onclick="location.href='@Url.Page("/CreateTicket")'" type="button" class="btn btn-primary">Create Ticket</button>
+
+    @if (Model.Tickets != null)
+    {
+        int i = 1; // initialize list loop
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Due</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var ticket in Model.Tickets)
+            {
+                <tr class="clickable-row" data-href="@Url.Page("/TicketDetails", new { id = ticket.TicketId })">
+                    <td>@i</td>
+                    <td>@ticket.Title</td>
+                    <td>@ticket.Status</td>
+                    <td>@ticket.Priority</td>
+                    <td>@ticket.Type</td>
+                    <td>@ticket.Due</td>
+                </tr>
+                i++; // increment list loop
+            }
+            </tbody>
+        </table>
+    } else
+    {
+        <p>No tickets found.</p>
+    }
+
+    @{
+        System.Diagnostics.Debug.Assert(Model.Tickets != null, "Model.Tickets != null");
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+}

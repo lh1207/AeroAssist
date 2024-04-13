@@ -1,0 +1,143 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model AeroAssist.Models.TicketModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit Ticket";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title></title>
+</head>
+<body>
+<div below-nav>
+    <form id="editTicketForm" method="post" asp-page-handler="OnPut"> @* Still posting despite using put *@
+        @Html.AntiForgeryToken() @* Needed to put successfully without blank page. *@
+        <input type="hidden" name="_method" value="put" />
+        <input type="hidden" name="id" value="@Model.Ticket.TicketId" />
+        <input type="hidden" asp-for="Ticket.TicketId" />
+        <span asp-validation-for="Ticket.TicketId" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Ticket.Title"></label>
+            <input asp-for="Ticket.Title" class="form-control"/>
+            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Description"></label>
+            <input asp-for="Ticket.Description" class="form-control"/>
+            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Status"></label>
+            <select asp-for="Ticket.Status" class="form-control select2">
+                <option value="Open">Open</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="Resolved">Resolved</option>
+                <option value="Closed">Closed</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+            <span asp-validation-for="Ticket.Status" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Priority"></label>
+            <select asp-for="Ticket.Priority" id="priority" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Type"></label>
+            <select asp-for="Ticket.Type" class="form-control select2">
+                <option value="Incident">Incident</option>
+                <option value="Problem">Problem</option>
+                <option value="Request">Request</option>
+            </select>
+            <span asp-validation-for="Ticket.Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Subtype"></label>
+            <select asp-for="Ticket.Subtype" id="subtype" class="form-control select2">
+                <option value="Network">Network</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Server">Server</option>
+                <option value="Printer/Scanner">Printer/Scanner</option>
+                <option value="Software">Software</option>
+            </select>
+            <span asp-validation-for="Ticket.Subtype" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Item"></label>
+            <select asp-for="Ticket.Item" id="item" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Item" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Assignee"></label>
+            <select asp-for="Ticket.Assignee" class="form-control">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.UserName">@user.UserName</option>
+                }
+            </select>
+            <span asp-validation-for="Ticket.Assignee" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Reporter"></label>
+            <input asp-for="Ticket.Reporter" class="form-control" value="@Model.CurrentUserName" readonly/>
+            <span asp-validation-for="Ticket.Reporter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Created"></label>
+            <input asp-for="Ticket.Created" class="form-control" readonly/>
+            <span asp-validation-for="Ticket.Created" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Updated"></label>
+            <input asp-for="Ticket.Updated" class="form-control" readonly/>
+            <span asp-validation-for="Ticket.Updated" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Due"></label>
+            <input asp-for="Ticket.Due" type="date" class="form-control"/>
+            <span asp-validation-for="Ticket.Due" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Resolution"></label>
+            <input asp-for="Ticket.Resolution" class="form-control"/>
+            <span asp-validation-for="Ticket.Resolution" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Comments"></label>
+            <input asp-for="Ticket.Comments" class="form-control"/>
+            <span asp-validation-for="Ticket.Comments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Attachments"></label>
+            <input asp-for="Ticket.Attachments" class="form-control"/>
+            <span asp-validation-for="Ticket.Attachments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Departments"></label>
+            <select asp-for="Ticket.Departments" id="departments" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Departments" class="text-danger"></span>
+        </div>
+
+        <button id="editButton" type="submit" class="btn btn-primary">Edit</button>
+
+        <button type="button" class="btn btn-secondary" onclick="location.href='/Tickets'">Cancel</button>
+    </form>
+</div>
+</body>
+</html>
+
+@section Scripts{
+    <script src="~/js/ticket/createEditForm.js"></script>
+}

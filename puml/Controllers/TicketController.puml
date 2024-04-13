@@ -1,0 +1,11 @@
+@startuml
+class TicketController {
+    + TicketController(ticketService:TicketService.ITicketService, logger:ILogger<TicketModel>)
+    + Get() : ActionResult<IEnumerable<Ticket>>
+    + Get(id:int) : ActionResult<Ticket>
+    + Post(ticket:Ticket?) : ActionResult<Ticket>
+    + Put(id:int, updatedTicket:Ticket?) : IActionResult
+    + Delete(id:int) : IActionResult
+}
+Controller <|-- TicketController
+@enduml

@@ -1,0 +1,30 @@
+﻿@page
+@using System.Linq
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home";
+}
+
+<div>
+    <h1>Overview</h1>
+</div>
+
+<div class="chart-container">
+    <canvas id="ticketPriorityChart"></canvas>
+    <canvas id="ticketStatusChart"></canvas>
+</div>
+
+<div class="bar-graph">
+    <canvas id="ticketDepartmentChart"></canvas>
+</div>
+
+@section scripts {
+    <script>
+        var graphData = @Html.Raw(Json.Serialize(ViewData["GraphData"]));
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="~/js/graphs/statusGraph.js"></script>
+    <script src="~/js/graphs/priorityGraph.js"></script>
+    <script src="~/js/graphs/departmentGraph.js"></script>
+}

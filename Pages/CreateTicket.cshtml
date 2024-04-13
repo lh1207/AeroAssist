@@ -1,0 +1,127 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AeroAssist.Models.TicketModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create Ticket";
+}
+
+<!DOCTYPE html>
+
+<div below-nav>
+    <h1>Create Ticket</h1>
+    <p>Use this page to create a new ticket.</p>
+
+    <form id="createTicketForm" method="post" asp-page-handler="OnPostAsync">
+        @Html.AntiForgeryToken() @* Needed to post successfully without blank page. *@
+        <div class="form-group">
+            <label asp-for="Ticket.Title"></label>
+            <input asp-for="Ticket.Title" class="form-control"/>
+            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Description"></label>
+            <input asp-for="Ticket.Description" class="form-control"/>
+            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Status"></label>
+            <select asp-for="Ticket.Status" class="form-control select2">
+                <option value="Open">Open</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="Resolved">Resolved</option>
+                <option value="Closed">Closed</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+            <span asp-validation-for="Ticket.Status" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Priority"></label>
+            <select asp-for="Ticket.Priority" id="priority" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Type"></label>
+            <select asp-for="Ticket.Type" class="form-control select2">
+                <option value="Incident">Incident</option>
+                <option value="Problem">Problem</option>
+                <option value="Request">Request</option>
+            </select>
+            <span asp-validation-for="Ticket.Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Assignee"></label>
+            <select asp-for="Ticket.Assignee" class="form-control">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.UserName">@user.UserName</option>
+                }
+            </select>
+            <span asp-validation-for="Ticket.Assignee" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Subtype"></label>
+            <select asp-for="Ticket.Subtype" id="subtype" class="form-control select2">
+                <option value="Network">Network</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Server">Server</option>
+                <option value="Printer/Scanner">Printer/Scanner</option>
+                <option value="Software">Software</option>
+            </select>
+            <span asp-validation-for="Ticket.Subtype" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Ticket.Item"></label>
+            <select asp-for="Ticket.Item" id="item" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Item" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Reporter"></label>
+            <input asp-for="Ticket.Reporter" class="form-control" value="@Model.CurrentUserName" readonly/>
+            <span asp-validation-for="Ticket.Reporter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Due"></label>
+            <input asp-for="Ticket.Due" type="date" class="form-control" value="@DateTime.Now.AddDays(7).ToString("yyyy-MM-dd")"/>
+            <span asp-validation-for="Ticket.Due" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Resolution"></label>
+            <input asp-for="Ticket.Resolution" class="form-control"/>
+            <span asp-validation-for="Ticket.Resolution" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Comments"></label>
+            <input asp-for="Ticket.Comments" class="form-control"/>
+            <span asp-validation-for="Ticket.Comments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Attachments"></label>
+            <input asp-for="Ticket.Attachments" class="form-control"/>
+            <span asp-validation-for="Ticket.Attachments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ticket.Departments"></label>
+            <select asp-for="Ticket.Departments" id="departments" class="form-control select2">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <span asp-validation-for="Ticket.Departments" class="text-danger"></span>
+        </div>
+
+        <button id="createButton" type="submit" class="btn btn-primary">Create</button>
+
+        <button type="button" class="btn btn-secondary" onclick="location.href='/Ticket'">Cancel</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/js/ticket/createEditForm.js">
+    </script>
+}
