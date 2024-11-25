@@ -3,20 +3,30 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Home";
+    var graphData = ViewData["GraphData"] as IEnumerable<object>;
 }
 
 <div>
     <h1>Overview</h1>
 </div>
 
-<div class="chart-container">
-    <canvas id="ticketPriorityChart"></canvas>
-    <canvas id="ticketStatusChart"></canvas>
-</div>
+@if (graphData == null || !graphData.Any())
+{
+    <div>
+        <p>No tickets detected in system. Please submit a ticket to get started!</p>
+    </div>
+}
+else
+{
+    <div class="chart-container">
+        <canvas id="ticketPriorityChart"></canvas>
+        <canvas id="ticketStatusChart"></canvas>
+    </div>
 
-<div class="bar-graph">
-    <canvas id="ticketDepartmentChart"></canvas>
-</div>
+    <div class="bar-graph">
+        <canvas id="ticketDepartmentChart"></canvas>
+    </div>
+}
 
 @section scripts {
     <script>
@@ -27,4 +37,5 @@
     <script src="~/js/graphs/statusGraph.js"></script>
     <script src="~/js/graphs/priorityGraph.js"></script>
     <script src="~/js/graphs/departmentGraph.js"></script>
+
 }

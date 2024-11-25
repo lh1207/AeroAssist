@@ -1,4 +1,4 @@
-﻿using AeroAssist.Models;
+﻿using AeroAssist.Data.Models;
 using AeroAssist.Services;
 using Microsoft.AspNetCore.Mvc;
 

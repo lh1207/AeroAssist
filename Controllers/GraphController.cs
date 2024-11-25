@@ -16,8 +16,7 @@ namespace AeroAssist.Controllers
         {
             var tickets = await _context.GetAllTicketsAsync();
 
-            // Process the data into a format suitable for your graphs
-            // This is just an example, replace with your own logic
+            // Process the data into a format suitable for generated graphs
             var data = tickets.GroupBy(t => t.Status)
                 .Select(g => new { Status = g.Key, Count = g.Count() });
 

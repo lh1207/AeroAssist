@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AeroAssist.Models;
+namespace AeroAssist.Data.Models;
 
 public class ErrorModel(string errorCode, object errorMessage) : PageModel
 {

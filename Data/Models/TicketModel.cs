@@ -1,12 +1,11 @@
 using System.Text;
-using AeroAssist.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace AeroAssist.Models
+namespace AeroAssist.Data.Models
 {
     [BindProperties(SupportsGet = true)]
     public class TicketModel(UserManager<IdentityUser> userManager, ILogger<TicketModel> logger, AeroAssistContext context) : PageModel
@@ -18,7 +17,7 @@ namespace AeroAssist.Models
         {
             var handler = new HttpClientHandler();
 
-            // TODO: Remove this line before production
+            // TODO: Remove this line if this ever goes to production, we don't have a renewed certificate yet
             handler.ServerCertificateCustomValidationCallback =
                 HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
 
