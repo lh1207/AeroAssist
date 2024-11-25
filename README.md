@@ -9,7 +9,7 @@ AeroAssist is a versatile ticketing system designed for efficient ticket managem
 
 - [Screenshots](#screenshots)
 - [Getting Started](#getting-started)
-- [Swagger Documentation](#swagger-documentation)
+- [API Documentation](#api-documentation)
 
 ## Screenshots
 ![features](https://github.com/user-attachments/assets/34687b06-eefe-477c-8b60-4b3dc3abcbb7)
