@@ -23,11 +23,26 @@ To run the AeroAssist ticketing system, follow these steps:
 
 1. Clone the repository.
 2. Open the solution in Visual Studio or JetBrains Rider.
-3. Configure Swagger OpenAPI if needed.
-4. Run the application.
+3. Restore the NuGet packages.
+4. Build the solution.
+5. Create a new database called `AeroAssist` in SQL Server.
+6. Install the Entity Framework Core tools by running the following command in the Package Manager Console:
+   ```powershell
+   Install-Package Microsoft.EntityFrameworkCore.Tools
+   ```
+   Alternatively, you can install the tools globally by running the following command:
+   ```powershell
+    dotnet tool install --global dotnet-ef
+    ```
+7. Apply the Entity Framework migrations to the database by running the following command in the Package Manager Console:
+   ```powershell
+   Update-Database
+   ```
+8. Configure the connection string in the `appsettings.json` file.
+9. Run the application.
 
 ## API Documentation
 
-![swagger](https://github.com/user-attachments/assets/1eeb8358-821b-444f-90d2-38b3c85e3146)
+![api](https://github.com/user-attachments/assets/1eeb8358-821b-444f-90d2-38b3c85e3146)
 
 OpenAPI documentation is available at `/swagger`. Use it to explore and test the API endpoints.
