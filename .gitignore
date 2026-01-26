@@ -830,3 +830,7 @@ fabric.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains+all,visualstudio,visualstudiocode,csharp,dotnetcore,aspnetcore,web
+
+### Claude Code ###
+.claude/
+.claude*

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace AeroAssist.Data.Models
 {
     [BindProperties(SupportsGet = true)]
-    public class TicketModel(UserManager<IdentityUser> userManager, ILogger<TicketModel> logger, AeroAssistContext context) : PageModel
+    public class TicketModel(UserManager<IdentityUser> userManager, ILogger<TicketModel> logger, AeroAssistContext context, IConfiguration configuration) : PageModel
     {
         public List<IdentityUser> Users => userManager.Users.ToList();
         public string? CurrentUserName => userManager.GetUserName(User);
@@ -17,12 +17,17 @@ namespace AeroAssist.Data.Models
         {
             var handler = new HttpClientHandler();
 
-            // TODO: Remove this line if this ever goes to production, we don't have a renewed certificate yet
-            handler.ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            // In development or when configured, allow self-signed certificates
+            var allowInsecure = configuration.GetValue<bool>("HttpClient:AllowInsecureCertificates");
+            if (allowInsecure)
+            {
+                handler.ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            }
 
             var client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:7223/");
+            var baseUrl = configuration["HttpClient:BaseAddress"] ?? "https://localhost:7223/";
+            client.BaseAddress = new Uri(baseUrl);
 
             return client;
         }
