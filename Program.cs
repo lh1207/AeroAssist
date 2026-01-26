@@ -49,6 +49,7 @@ if (!string.IsNullOrEmpty(msClientId) && !string.IsNullOrEmpty(msClientSecret))
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
+builder.Services.AddHealthChecks();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -94,6 +95,9 @@ app.UseCors(myAllowSpecificOrigins);
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+// Map health check endpoint
+app.MapHealthChecks("/health");
 
 // Map API controllers
 app.MapControllers();

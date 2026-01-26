@@ -1,0 +1,49 @@
+# Build output
+bin/
+obj/
+out/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Git
+.git/
+.gitignore
+
+# Documentation and diagrams
+docs/
+puml/
+*.md
+
+# Test results
+TestResults/
+coverage/
+
+# Local development files
+*.local.json
+appsettings.Development.json
+Properties/launchSettings.json
+
+# Secrets (never include in image)
+*.pfx
+*.key
+*.pem
+
+# Docker files (not needed in image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# GitHub
+.github/
+
+# Misc
+*.log
+*.tmp
+node_modules/
