@@ -12,9 +12,13 @@
 
 	<ItemGroup>
 	  <Compile Remove="Page\**" />
+	  <Compile Remove="AeroAssist.Tests\**" />
 	  <Content Remove="Page\**" />
+	  <Content Remove="AeroAssist.Tests\**" />
 	  <EmbeddedResource Remove="Page\**" />
+	  <EmbeddedResource Remove="AeroAssist.Tests\**" />
 	  <None Remove="Page\**" />
+	  <None Remove="AeroAssist.Tests\**" />
 	  <None Include="wwwroot\images\cloud.png" />
 	</ItemGroup>
 
